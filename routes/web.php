@@ -152,6 +152,15 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/destroy/{id}', [BatchController::class, 'destroy'])->name('destroy');
             Route::post('/update', [BatchController::class, 'update'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
         });
+            //course
+            Route::prefix('course')->name('course.')->group(function () {
+            Route::get('/index', [ExamController::class, 'Index'])->name('index');
+            Route::get('/create', [ExamController::class, 'create'])->name('create');
+            Route::post('/store', [ExamController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
+            Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
+            Route::post('/update', [ExamController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+        });
             //exam
             Route::prefix('exam')->name('exam.')->group(function () {
             Route::get('/index', [ExamController::class, 'Index'])->name('index');

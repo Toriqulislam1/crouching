@@ -66,6 +66,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('admin.course.index')}}" class="nav-link {{Request::is('admin/get-privacy') ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Course</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('package.index')}}" class="nav-link {{Request::is('admin/package') || Request::is('admin/package/create') || Request::is('admin/package/*/edit') || Request::is('admin/package/*/show') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Course</p>
