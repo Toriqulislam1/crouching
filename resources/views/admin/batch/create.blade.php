@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right">Add Batch</button>
+                            <button type="submit" class="btn btn-primary float-right">Add </button>
                         </div>
                     </form>
                 </div>
