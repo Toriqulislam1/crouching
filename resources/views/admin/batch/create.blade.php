@@ -152,13 +152,13 @@
         $('#subjectForm').on('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
 
-            let subjectName = $('#batch_name').val(); // Get the subject name
-
+            let batchName = $('#batch_name').val(); // Get the subject name
+            console.log(batchName);
             $.ajax({
                 url: "{{ route('admin.batch.store') }}", // The route for storing the subject
                 type: "POST"
                 , data: {
-                    subject_name: subjectName
+                    batchName: batchName
                     , _token: "{{ csrf_token() }}" // Pass the CSRF token
                 }
                 , success: function(response) {

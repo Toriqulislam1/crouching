@@ -18,15 +18,13 @@ class SubjectService
     }
 
 
-    public function updateSubject($SubjectId, array $data)
+    public function updateSubject($subjectId, array $data)
     {
-        dd($data);
-        $Subject = $this->editSubject($SubjectId);
 
-        $data['subject_name'] = $totalAmount;
-
-        $Subject->update($data);
-        return $package;
+        $subject_name = $data['subject_name'];
+        $Subject = $this->editSubject($subjectId);
+        $Subject->update(['subject_name' => $subject_name,
+        ]);
     }
 
     public function deletePackage($packageId)

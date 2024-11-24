@@ -140,7 +140,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/store', [SubjectController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [SubjectController::class, 'edit'])->name('edit');
             Route::delete('/destroy/{id}', [SubjectController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [SubjectController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+            Route::post('/update', [SubjectController::class, 'SubjectUpdate'])->name('update');
+
         });
             //batch
             Route::prefix('batch')->name('batch.')->group(function () {
@@ -149,7 +150,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/store', [BatchController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [BatchController::class, 'edit'])->name('edit');
             Route::delete('/destroy/{id}', [BatchController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [BatchController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+            Route::post('/update', [BatchController::class, 'update'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
         });
             //exam
             Route::prefix('exam')->name('exam.')->group(function () {

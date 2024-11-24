@@ -23,6 +23,7 @@
                             <div class="form-group">
                                 <label for="subject_name">Subject Name <code>*</code></label>
                                 <input type="text" class="form-control" name="subject_name" value="{{ $subject->subject_name }}" id="subject_name" required placeholder="Subject name">
+                                <input type="hidden" class="form-control" name="" value="{{ $subject->id }}" id="id" required placeholder="Subject name">
                                 <span class="text-danger" id="subject_name_error"></span>
                             </div>
                         </div>
@@ -56,12 +57,14 @@
 
             // Get form data
             let subjectName = $('#subject_name').val();
-            
+            let subjectId = $('#id').val();
+
             $.ajax({
                 url: "{{ route('admin.subject.update') }}", // The route for updating the subject
                 type: "POST"
                 , data: {
-                    subject_name: subjectName
+                    subject_name: subjectName,
+                    subjectId: subjectId
                     , _token: "{{ csrf_token() }}"
                 }
                 , success: function(response) {
@@ -75,9 +78,10 @@
                         , showConfirmButton: false
                         , timer: 3000
                     });
-
-                    // Reset the form
-                    $('#subjectForm')[0].reset();
+                     // Redirect to the subject index page
+                     setTimeout(() => {
+                     window.location.href = "{{ route('admin.subject.index') }}";
+                     }, 3000); // Red
                 }
                 , error: function(xhr) {
                     // Display validation errors

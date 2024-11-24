@@ -60,13 +60,12 @@ class SubjectController extends Controller
         $data['subject'] = $this->SubjectService->editSubject($id);
         return view('admin.subject.edit', $data);
     }
-    public function update(SubjectRequest $request)
+    public function SubjectUpdate(SubjectRequest $request)
     {
-        return response()->json('subject added successfull');
+        $subjectId = $request->subjectId;
         $in = $request->all();
-        $this->SubjectService->updateSubject($id, $in); // store this package using services
-        session()->flash('success', 'Successfully Created');
-        return response()->json('subject added successfull');
+        $this->SubjectService->updateSubject($subjectId,$in); // store this package using services
+        return response()->json('subject Update successfull');
     }
     public function destroy($id)
     {

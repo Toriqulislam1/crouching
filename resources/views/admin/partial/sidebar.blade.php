@@ -35,7 +35,6 @@
                         <p>Order</p>
                     </a>
                 </li>
-
             </ul>
             @endif
             @if($user->hasRole('admin'))
@@ -49,7 +48,7 @@
                 </li>
                 <li class="nav-item {{Request::is('admin/get-basic') || Request::is('admin/get-about') || Request::is('admin/get-terms') || Request::is('admin/get-privacy') ? 'menu-open' : ''}}">
                     <a href="#" class="nav-link {{Request::is('admin/get-basic') || Request::is('admin/get-about') || Request::is('admin/get-terms') || Request::is('admin/get-privacy') ? 'active' : ''}}">
-                       <i class="nav-icon fas fa-paperclip"></i>
+                      <i class="nav-icon fas fa-chalkboard"></i>
                         <p>Manage Course<i class="fas fa-angle-left right"></i></p>
 
                     </a>

@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 use App\Http\Requests\SubjectRequest;
 use App\Http\Requests\BatchRequest;
-use Illuminate\Bus\Batch as BusBatch;
+
 
 class BatchController extends Controller
 {
@@ -31,25 +31,20 @@ class BatchController extends Controller
 
     public function Index(){
         $data['page_title'] = "Batch List";
-        $data['subjects'] = Batch::all();
+        $data['batchs'] = Batch::all();
 
         return view('admin.batch.index',$data);
     }
 
     public function create(Request $request){
-        $data['page_title'] = "Subject Create";
+        $data['page_title'] = "Batch Create";
         return view('admin.batch.create', $data);
     }
 
-    public function store(Request $request){
-
-        $request->validate([
-            'batch_name' => 'required|string|max:255',
-        ]);
-
+    public function store(BatchRequest $request){
         // Save the subject
         Batch::create([
-            'batch_name' => $request->batch_name,
+            'batch_name' => $request->batchName,
         ]);
 
      return response()->json('subject added successfull');
@@ -57,16 +52,16 @@ class BatchController extends Controller
     public function edit($id)
     {
         $data['page_title'] = "Batch Edit";
-        $data['subject'] = $this->BatchService->editBatch($id);
-        return view('admin.subject.edit', $data);
+        $data['batch'] = $this->BatchService->editBatch($id);
+        return view('admin.batch.edit', $data);
     }
     public function update(BatchRequest $request)
     {
-        return response()->json('Batch added successfull');
+        $id = $request->id;
         $in = $request->all();
         $this->BatchService->updateBatch($id, $in); // store this package using services
         session()->flash('success', 'Successfully Created');
-        return response()->json('subject added successfull');
+        return response()->json('Update successfull');
     }
     public function destroy($id)
     {

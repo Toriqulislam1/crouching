@@ -76,7 +76,7 @@
                 <div class="modal-body">
                     <p>Are you sure you want to Delete ?</p>
                 </div>
-                <div class="modal-footer justify-content-between">
+                {{-- <div class="modal-footer justify-content-between">
                     <form action="{{route('admin.subject.destroy',0)}}" method="post" id="deleteForm">
                         {!! csrf_field() !!}
                         {!! method_field('DELETE') !!}
@@ -84,7 +84,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger deleteButton float-right">Delete!</button>
                     </form>
-                </div>
+                </div> --}}
             </div>
             <!-- /.modal-content -->
         </div>

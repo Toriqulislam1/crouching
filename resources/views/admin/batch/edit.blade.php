@@ -22,7 +22,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="subject_name">Batch Name <code>*</code></label>
-                                <input type="text" class="form-control" name="subject_name" value="{{ $batch->batch_name }}" id="batch_name" required placeholder="batch name">
+                                <input type="text" class="form-control" value="{{ $batch->batch_name }}" id="batch_name" required placeholder="batch name">
+                                <input type="hidden" class="form-control" name="" value="{{ $batch->id }}" id="id" required placeholder="batch name">
                                 <span class="text-danger" id="subject_name_error"></span>
                             </div>
                         </div>
@@ -50,18 +51,19 @@
         // Handle form submission
         $('#subjectForm').on('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
-
             // Clear previous errors
-            $('#subject_name_error').text('');
+            $('#batch_name').text('');
 
             // Get form data
-            let subjectName = $('#subject_name').val();
+            let batchName = $('#batch_name').val();
+            let id = $('#id').val();
 
             $.ajax({
                 url: "{{ route('admin.batch.update') }}", // The route for updating the subject
                 type: "POST"
                 , data: {
-                    batch_name: batchName
+                    batchName: batchName,
+                    id: id
                     , _token: "{{ csrf_token() }}"
                 }
                 , success: function(response) {
@@ -76,8 +78,10 @@
                         , timer: 3000
                     });
 
-                    // Reset the form
-                    $('#subjectForm')[0].reset();
+                    setTimeout(() => {
+                    window.location.href = "{{ route('admin.batch.index') }}";
+                    }, 3000); // Red
+
                 }
                 , error: function(xhr) {
                     // Display validation errors

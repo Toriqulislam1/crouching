@@ -25,7 +25,7 @@ class BatchRequest extends FormRequest
     {
         return [
 
-            'batch_name'         => 'required',
+            'batchName' => 'required',
         ];
     }
 }

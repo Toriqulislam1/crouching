@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Batch;
 use App\Models\Package;
-use App\Models\Subject;
 
 class BatchService
 {
@@ -12,21 +12,21 @@ class BatchService
         return Package::latest()->get();
     }
 
-    public function editSubject($SubjectId)
+    public function editBatch($SubjectId)
     {
-        return Subject::findOrFail($SubjectId);
+        return Batch::findOrFail($SubjectId);
     }
 
 
-    public function updateSubject($SubjectId, array $data)
+    public function updateBatch($SubjectId, array $data)
     {
-        dd($data);
-        $Subject = $this->editSubject($SubjectId);
-
-        $data['subject_name'] = $totalAmount;
-
-        $Subject->update($data);
-        return $package;
+        $batch_name = $data['batchName'];
+        $Subject = $this->editBatch($SubjectId);
+        $Subject->update(
+            [
+                'batch_name' =>$batch_name,
+            ]
+        );
     }
 
     public function deletePackage($packageId)
