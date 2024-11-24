@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\parmentStaticController;
 use App\Http\Controllers\BatchController;
+use App\Http\Controllers\ExamController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FinancialStatementsController;
@@ -141,15 +142,24 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/destroy/{id}', [SubjectController::class, 'destroy'])->name('destroy');
             Route::post('/update', [SubjectController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
         });
-             //batch
-             Route::prefix('batch')->name('batch.')->group(function () {
-                Route::get('/index', [BatchController::class, 'Index'])->name('index');
-                Route::get('/create', [BatchController::class, 'create'])->name('create');
-                Route::post('/store', [BatchController::class, 'store'])->name('store');
-                Route::get('/edit/{id}', [BatchController::class, 'edit'])->name('edit');
-                Route::delete('/destroy/{id}', [BatchController::class, 'destroy'])->name('destroy');
-                Route::post('/update', [BatchController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
-            });
+            //batch
+            Route::prefix('batch')->name('batch.')->group(function () {
+            Route::get('/index', [BatchController::class, 'Index'])->name('index');
+            Route::get('/create', [BatchController::class, 'create'])->name('create');
+            Route::post('/store', [BatchController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [BatchController::class, 'edit'])->name('edit');
+            Route::delete('/destroy/{id}', [BatchController::class, 'destroy'])->name('destroy');
+            Route::post('/update', [BatchController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+        });
+            //exam
+            Route::prefix('exam')->name('exam.')->group(function () {
+            Route::get('/index', [ExamController::class, 'Index'])->name('index');
+            Route::get('/create', [ExamController::class, 'create'])->name('create');
+            Route::post('/store', [ExamController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
+            Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
+            Route::post('/update', [ExamController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+        });
 
     });
 });
