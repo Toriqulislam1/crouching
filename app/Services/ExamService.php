@@ -20,7 +20,7 @@ class ExamService
 
     public function updateSubject($SubjectId, array $data)
     {
-        dd($data);
+        
         $Subject = $this->editSubject($SubjectId);
 
         $data['subject_name'] = $totalAmount;

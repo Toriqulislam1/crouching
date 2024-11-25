@@ -12,7 +12,7 @@
                 <h3 class="card-title">{{ $page_title }}</h3>
                 <div class="pull-right box-tools">
                     <div class="float-right mt-1">
-                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.batch.index') }}"> Back</a>
+                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.index') }}"> Back</a>
                     </div>
                 </div>
             </div>
@@ -21,9 +21,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="subject_name">Batch Name <code>*</code></label>
-                                <input type="text" class="form-control" value="{{ $batch->batch_name }}" id="batch_name" required placeholder="batch name">
-                                <input type="hidden" class="form-control" name="" value="{{ $batch->id }}" id="id" required placeholder="batch name">
+                                <label for="subject_name">Course Name <code>*</code></label>
+                                <input type="text" class="form-control" value="{{ $Course->Course_name }}" id="Course_name" required placeholder="Course name">
+                                <input type="hidden" class="form-control" name="" value="{{ $Course->id }}" id="id" required placeholder="batch name">
+
                                 <span class="text-danger" id="subject_name_error"></span>
                             </div>
                         </div>
@@ -52,22 +53,20 @@
         $('#subjectForm').on('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
             // Clear previous errors
-            $('#batch_name').text('');
-
+            $('#Course_name').text('');
             // Get form data
-            let batchName = $('#batch_name').val();
+            let Course_name = $('#Course_name').val();
             let id = $('#id').val();
-
             $.ajax({
-                url: "{{ route('admin.batch.update') }}", // The route for updating the subject
+                url: "{{ route('admin.course.update') }}", // The route for updating the subject
                 type: "POST"
                 , data: {
-                    batchName: batchName,
+                    Course_name: Course_name,
                     id: id
                     , _token: "{{ csrf_token() }}"
                 }
                 , success: function(response) {
-                    console.log(response);
+
                     // Show success toast
                     Swal.fire({
                         icon: 'success'
@@ -79,7 +78,7 @@
                     });
 
                     setTimeout(() => {
-                    window.location.href = "{{ route('admin.batch.index') }}";
+                    window.location.href = "{{ route('admin.course.index') }}";
                     }, 3000); // Red
 
                 }
@@ -87,7 +86,8 @@
                     // Display validation errors
                     let errors = xhr.responseJSON.errors;
                     if (errors && errors.subject_name) {
-                        $('#subject_name_error').text(errors.subject_name[0]);
+                        $('#subject_name_error').text(errors.Course_name[0]);
+
                     } else {
                         Swal.fire({
                             icon: 'error'

@@ -17,13 +17,14 @@ class CourseService
         return Course::findOrFail($SubjectId);
     }
 
-    public function updateBatch($CourseId, array $data)
+    public function updateCourse($CourseId, array $data)
     {
-        $batch_name = $data['CourseName'];
-        $Subject = $this->editCourse($CourseId);
-        $Subject->update(
+        $Course_name = $data['Course_name'];
+        
+        $Course = $this->editCourse($CourseId);
+        $Course->update(
             [
-                'Course_name' =>$batch_name,
+                'Course_name' => $Course_name,
             ]
         );
     }

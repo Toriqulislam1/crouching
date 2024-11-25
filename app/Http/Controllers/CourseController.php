@@ -65,9 +65,9 @@ class CourseController extends Controller
     }
     public function destroy($id)
     {
-        $subject = Course::find($id);
-        if ($subject) {
-            $subject->delete();
+        $Course = Course::find($id);
+        if ($Course) {
+            $Course->delete();
             return redirect()->back()
                 ->with('success', 'Delete successfully');
         } else {

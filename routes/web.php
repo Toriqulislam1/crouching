@@ -159,7 +159,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/store', [CourseController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [CourseController::class, 'edit'])->name('edit');
             Route::delete('/destroy/{id}', [CourseController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [CourseController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+            Route::post('/update', [CourseController::class, 'update'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
         });
             //exam
             Route::prefix('exam')->name('exam.')->group(function () {
