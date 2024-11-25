@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\parmentStaticController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ExamController;
-
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FinancialStatementsController;
 use App\Http\Controllers\SubjectController;
@@ -154,12 +154,12 @@ Route::group(['middleware' => 'auth'], function () {
         });
             //course
             Route::prefix('course')->name('course.')->group(function () {
-            Route::get('/index', [ExamController::class, 'Index'])->name('index');
-            Route::get('/create', [ExamController::class, 'create'])->name('create');
-            Route::post('/store', [ExamController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
-            Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [ExamController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+            Route::get('/index', [CourseController::class, 'Index'])->name('index');
+            Route::get('/create', [CourseController::class, 'create'])->name('create');
+            Route::post('/store', [CourseController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [CourseController::class, 'edit'])->name('edit');
+            Route::delete('/destroy/{id}', [CourseController::class, 'destroy'])->name('destroy');
+            Route::post('/update', [CourseController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
         });
             //exam
             Route::prefix('exam')->name('exam.')->group(function () {

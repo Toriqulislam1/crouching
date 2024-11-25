@@ -16,7 +16,7 @@
                 <h3 class="card-title">{{$page_title}}</h3>
                 <div class="pull-right box-tools">
                     <div class="float-right mt-1">
-                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.batch.index') }}"> Back</a>
+                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.index') }}"> Back</a>
                     </div>
                 </div>
             </div>
@@ -25,13 +25,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="subject_name">batch Name<code>*</code></label>
-                                    <input type="text" class="form-control" id="batch_name" name="batch_name" value="{{ old('batch_name') }}" required placeholder="batch Name">
+                                    <label for="Course_name">Course Name<code>*</code></label>
+                                    <input type="text" class="form-control" id="Course_name" name="Course_name" value="{{ old('Course_name') }}" required placeholder="Course Name">
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right">Add Batch</button>
+                            <button type="submit" class="btn btn-primary float-right">Add Course</button>
                         </div>
                     </form>
                 </div>
@@ -152,13 +152,13 @@
         $('#subjectForm').on('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
 
-            let batchName = $('#batch_name').val(); // Get the subject name
-            console.log(batchName);
+            let Course_name = $('#Course_name').val(); // Get the subject name
+
             $.ajax({
-                url: "{{ route('admin.batch.store') }}", // The route for storing the subject
+                url: "{{ route('admin.course.store') }}", // The route for storing the subject
                 type: "POST"
                 , data: {
-                    batchName: batchName
+                    Course_name: Course_name
                     , _token: "{{ csrf_token() }}" // Pass the CSRF token
                 }
                 , success: function(response) {

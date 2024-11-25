@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\transactions;
 use App\Models\expense_catagory;
 use Carbon\Carbon;
-use App\Models\Subject;
+use App\Models\Exam;
 use App\Http\Requests\SubjectRequest;
 
 

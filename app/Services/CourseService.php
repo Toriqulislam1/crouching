@@ -2,35 +2,35 @@
 
 namespace App\Services;
 
-use App\Models\Batch;
+use App\Models\Course;
 use App\Models\Package;
 
 class CourseService
 {
-    public function getAllPackages()
+    public function getAllCourse()
     {
         return Package::latest()->get();
     }
 
-    public function editBatch($SubjectId)
+    public function editCourse($SubjectId)
     {
-        return Batch::findOrFail($SubjectId);
+        return Course::findOrFail($SubjectId);
     }
 
-    public function updateBatch($SubjectId, array $data)
+    public function updateBatch($CourseId, array $data)
     {
-        $batch_name = $data['batchName'];
-        $Subject = $this->editBatch($SubjectId);
+        $batch_name = $data['CourseName'];
+        $Subject = $this->editCourse($CourseId);
         $Subject->update(
             [
-                'batch_name' =>$batch_name,
+                'Course_name' =>$batch_name,
             ]
         );
     }
 
-    public function deletePackage($packageId)
+    public function deleteCourse($CourseId)
     {
-        $package = $this->getPackageById($packageId);
+        $package = $this->getCourseById($CourseId);
         $package->delete();
     }
 }
