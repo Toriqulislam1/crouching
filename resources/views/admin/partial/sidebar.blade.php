@@ -87,7 +87,7 @@
                         <li class="nav-item">
                             <a href="{{route('admin.subject.index')}}" class="nav-link {{Request::is('admin/get-about') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Exam Assigen</p>
+                                <p>Exam Assign</p>
                             </a>
                         </li>
                         <li class="nav-item">

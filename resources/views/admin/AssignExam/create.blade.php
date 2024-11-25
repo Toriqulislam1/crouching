@@ -16,42 +16,47 @@
                 <h3 class="card-title">{{$page_title}}</h3>
                 <div class="pull-right box-tools">
                     <div class="float-right mt-1">
-                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.batch.index') }}"> Back</a>
+                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.index') }}"> Back</a>
                     </div>
                 </div>
             </div>
                 <div class="card-body">
-                    <form method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <select name="subject_id" id="subject" class="form-control">
-                                @foreach ($courses as $course)
-                                <optgroup label="{{ $course->name }}">
-                                    @foreach ($course->subjects as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                                @endforeach
-                            </select>
+                    <form id="subjectForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="subject">Course Name</label>
+                                    <select name="subject_id" id="subject" class="form-control">
+                                        @foreach ($courses as $course)
+                                          <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="subject">Subject Name</label>
+                                    <select name="subject_id" id="subject" class="form-control">
+                                        @foreach ($courses as $course)
+                                          <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="subject">Batch Name</label>
+                                    <select name="subject_id" id="subject" class="form-control">
+                                        @foreach ($courses as $course)
+                                          <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="question">Question</label>
-                            <input type="text" name="question" id="question" class="form-control" required>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right">Add Course</button>
                         </div>
-
-                        <div class="form-group">
-                            <label for="options">Options (comma-separated)</label>
-                            <input type="text" name="options[]" id="options" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="correct_answer">Correct Answer</label>
-                            <input type="text" name="correct_answer" id="correct_answer" class="form-control" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Add Question</button>
                     </form>
                 </div>
             <!-- /.card -->
@@ -171,13 +176,13 @@
         $('#subjectForm').on('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
 
-            let subjectName = $('#batch_name').val(); // Get the subject name
+            let Course_name = $('#Course_name').val(); // Get the subject name
 
             $.ajax({
-                url: "{{ route('admin.batch.store') }}", // The route for storing the subject
+                url: "{{ route('admin.course.store') }}", // The route for storing the subject
                 type: "POST"
                 , data: {
-                    subject_name: subjectName
+                    Course_name: Course_name
                     , _token: "{{ csrf_token() }}" // Pass the CSRF token
                 }
                 , success: function(response) {
