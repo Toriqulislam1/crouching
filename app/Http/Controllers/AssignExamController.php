@@ -40,16 +40,15 @@ class AssignExamController extends Controller
     public function create(Request $request)
     {
         $data['page_title'] = "AssignExam Create";
+        $data['Course'] = $this->AssignExamService->GetAllCourse();
+        $data['Subject'] = $this->AssignExamService->GetAllSubjet();
+        $data['Batch'] = $this->AssignExamService->GetAllBatch();
         return view('admin.AssignExam.create', $data);
     }
 
     public function store(AssignExamRequest $request)
     {
-        // Save the subject
-        AssignExam::create([
-            'AssignExam_name' => $request->AssignExam_name,
-        ]);
-
+        $this->AssignExamService->AssignExamStore($request);
         return response()->json('AssignExam added successfull');
     }
     public function edit($id)

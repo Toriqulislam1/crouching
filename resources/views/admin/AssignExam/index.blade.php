@@ -18,7 +18,7 @@
                             <h3 class="card-title">{{$page_title}}</h3>
                             <div class="pull-right box-tools">
                                 <div class="float-right mt-1">
-                                    <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.create') }}">New Course Add</a>
+                                    <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.assign.create') }}">New Exam Assign Add</a>
                                 </div>
                             </div>
                         </div>
@@ -29,20 +29,20 @@
                                     <thead>
                                     <tr>
                                         <th class="text-bold text-uppercase">#SL</th>
-                                        <th class="text-bold text-uppercase">Course name </th>
+                                        <th class="text-bold text-uppercase"> Exam name </th>
                                         <th class="text-bold text-uppercase">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($Course as $key => $Course)
+                                    @foreach ($AssignExam as $key => $AssignExam)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $Course->Course_name  }}</td>
+                                            <td>{{ $AssignExam->name  }}</td>
                                             <td>
-                                                @if($Course->id !== 1)
-                                                 <a class="btn btn-sm btn-primary fa fa-edit" href="{{ route('admin.course.edit',$Course->id) }}" title="Edit"></a>
+                                                @if($AssignExam->id !== 1)
+                                                 <a class="btn btn-sm btn-primary fa fa-edit" href="{{ route('admin.assign.edit',$AssignExam->id) }}" title="Edit"></a>
                                                    @can('delete')
-                                                       {!! Form::button('<i class="fa fa-trash"></i> ', ['title' => 'Delete', 'class' => 'btn btn-sm btn-danger bold uppercase delete_button','data-toggle'=>"modal",'data-target'=>"#DelModal",'data-id'=>$Course->id]) !!}
+                                                       {!! Form::button('<i class="fa fa-trash"></i> ', ['title' => 'Delete', 'class' => 'btn btn-sm btn-danger bold uppercase delete_button','data-toggle'=>"modal",'data-target'=>"#DelModal",'data-id'=>$AssignExam->id]) !!}
                                                    @endcan
                                                 @endif
                                             </td>
@@ -77,7 +77,7 @@
                     <p>Are you sure you want to Delete ?</p>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <form action="{{route('admin.course.destroy',0)}}" method="post" id="deleteForm">
+                    <form action="{{route('admin.assign.destroy',0)}}" method="post" id="deleteForm">
                         {!! csrf_field() !!}
                         {!! method_field('DELETE') !!}
                         <input type="hidden" name="id" id="delete_id" class="delete_id" value="0">
@@ -118,7 +118,7 @@
         $(document).ready(function () {
             $(document).on("click", '.delete_button', function (e) {
                 var id = $(this).data('id');
-                var url = '{{ route("admin.course.destroy",":id") }}';
+                var url = '{{ route("admin.assign.destroy",":id") }}';
                 url = url.replace(':id',id);
                 $("#deleteForm").attr("action",url);
                 $("#delete_id").val(id);

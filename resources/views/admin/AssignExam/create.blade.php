@@ -23,39 +23,46 @@
                 <div class="card-body">
                     <form id="subjectForm">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="subject">Course Name</label>
-                                    <select name="subject_id" id="subject" class="form-control">
-                                        @foreach ($courses as $course)
-                                          <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                    <label for="Exam_name">Exam Name <code>*</code></label>
+                                    <input type="text" class="form-control" value="" id="ExamName" required placeholder="Exam name">
+                                    <span class="text-danger" id="Exam_name"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Course">Course Name</label>
+                                    <select name="Course_id" id="CourseId" class="form-control">
+                                        @foreach ($Course as $course)
+                                          <option value="{{ $course->id }}">{{ $course->Course_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="subject">Subject Name</label>
-                                    <select name="subject_id" id="subject" class="form-control">
-                                        @foreach ($courses as $course)
-                                          <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                    <select name="Subject_id" id="SubjectId" class="form-control">
+                                        @foreach ($Subject as $Subject)
+                                          <option value="{{ $Subject->id }}">{{ $Subject->subject_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="subject">Batch Name</label>
-                                    <select name="subject_id" id="subject" class="form-control">
-                                        @foreach ($courses as $course)
-                                          <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                    <select name="Batch_id" id="BatchId" class="form-control">
+                                        @foreach ($Batch as $Batch)
+                                          <option value="{{ $Batch->id }}">{{ $Batch->batch_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right">Add Course</button>
+                            <button type="submit" class="btn btn-primary float-right">Add Assign Exam</button>
                         </div>
                     </form>
                 </div>
@@ -172,22 +179,24 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#subjectForm').on('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-
-            let Course_name = $('#Course_name').val(); // Get the subject name
+    $(document).ready(function () {
+        $('#subjectForm').on('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+            let formData = {
+                ExamName: $('#ExamName').val(),
+                CourseId: $('#CourseId').val(),
+                SubjectId: $('#SubjectId').val(),
+                BatchId: $('#BatchId').val(),
+                _token: '{{ csrf_token() }}', // CSRF token for Laravel
+            };
 
             $.ajax({
-                url: "{{ route('admin.course.store') }}", // The route for storing the subject
-                type: "POST"
-                , data: {
-                    Course_name: Course_name
-                    , _token: "{{ csrf_token() }}" // Pass the CSRF token
-                }
-                , success: function(response) {
-                     // Show success toast
-                     Swal.fire({
+                url: '{{ route("admin.assign.store") }}', // Replace with your route name or URL
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                  // Show success toast
+                  Swal.fire({
                      icon: 'success',
                      title: response.success,
                      toast: true,
@@ -196,25 +205,22 @@
                      timer: 3000
                      });
 
-                    $('#subjectForm')[0].reset(); // Reset the form
-                }
-                , error: function(xhr) {
-                    // Handle error response
-                    let errors = xhr.responseJSON.errors;
-                    if (errors) {
-                        let errorMessage = '';
-                        for (let field in errors) {
-                            errorMessage += errors[field][0] + '\n';
+                    $('#subjectForm')[0].reset(); 
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        // Handle validation errors
+                        let errors = xhr.responseJSON.errors;
+                        if (errors.ExamName) {
+                            $('#Exam_name').text(errors.ExamName[0]);
                         }
-                        alert(errorMessage);
                     } else {
-                        alert('Something went wrong. Please try again.');
+                        alert('Something went wrong! Please try again.');
                     }
                 }
             });
         });
     });
-
 </script>
 @endpush
 

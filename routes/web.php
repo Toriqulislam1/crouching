@@ -179,11 +179,11 @@ Route::group(['middleware' => 'auth'], function () {
         //Exam assign
         Route::prefix('AssignExam')->name('assign.')->group(function () {
             Route::get('/index', [AssignExamController::class, 'Index'])->name('index');
-            Route::get('/create', [SubjectController::class, 'create'])->name('create');
-            Route::post('/store', [SubjectController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [SubjectController::class, 'edit'])->name('edit');
-            Route::delete('/destroy/{id}', [SubjectController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [SubjectController::class, 'SubjectUpdate'])->name('update');
+            Route::get('/create', [AssignExamController::class, 'create'])->name('create');
+            Route::post('/store', [AssignExamController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [AssignExamController::class, 'edit'])->name('edit');
+            Route::delete('/destroy/{id}', [AssignExamController::class, 'destroy'])->name('destroy');
+            Route::post('/update', [AssignExamController::class, 'SubjectUpdate'])->name('update');
         });
         //batch
         Route::prefix('batch')->name('batch.')->group(function () {
