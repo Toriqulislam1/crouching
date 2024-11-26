@@ -16,7 +16,7 @@
                 <h3 class="card-title">{{$page_title}}</h3>
                 <div class="pull-right box-tools">
                     <div class="float-right mt-1">
-                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.index') }}"> Back</a>
+                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.assign.index') }}"> Back</a>
                     </div>
                 </div>
             </div>
@@ -205,7 +205,7 @@
                      timer: 3000
                      });
 
-                    $('#subjectForm')[0].reset(); 
+                    $('#subjectForm')[0].reset();
                 },
                 error: function (xhr) {
                     if (xhr.status === 422) {

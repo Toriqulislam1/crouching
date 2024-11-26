@@ -54,14 +54,19 @@ class AssignExamController extends Controller
     public function edit($id)
     {
         $data['page_title'] = "AssignExam Edit";
+
         $data['AssignExam'] = $this->AssignExamService->editAssignExam($id);
+        $data['Course'] = $this->AssignExamService->GetAllCourse();
+        $data['Subject'] = $this->AssignExamService->GetAllSubjet();
+        $data['Batch'] = $this->AssignExamService->GetAllBatch();
+
         return view('admin.AssignExam.edit', $data);
     }
-    public function update(AssignExamRequest $request)
+    public function Update(AssignExamRequest $request)
     {
-        $id = $request->id;
-        $in = $request->all();
-        $this->AssignExamService->updateAssignExam($id, $in); // store this package using services
+        $id = $request->Id;
+        
+        $this->AssignExamService->updateAssignExam($id,$request); // store this package using services
         session()->flash('success', 'Successfully Created');
         return response()->json('Update successfull');
     }

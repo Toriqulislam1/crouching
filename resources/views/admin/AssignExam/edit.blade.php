@@ -21,16 +21,53 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="subject_name">Course Name <code>*</code></label>
-                                <input type="text" class="form-control" value="{{ $Course->Course_name }}" id="Course_name" required placeholder="Course name">
-                                <input type="hidden" class="form-control" name="" value="{{ $Course->id }}" id="id" required placeholder="batch name">
+                                <label for="Exam_name">Exam Name <code>*</code></label>
+                                <input type="text" class="form-control" value="{{ $AssignExam->name }}" id="ExamName" required placeholder="Exam name">
+                                <input type="hidden" class="form-control" value="{{ $AssignExam->id }}" id="Id" required placeholder="Exam name">
 
-                                <span class="text-danger" id="subject_name_error"></span>
+                                <span class="text-danger" id="Exam_name"></span>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Course">Course Name</label>
+                                <select name="Course_id" id="CourseId" class="form-control">
+                                    @foreach ($Course as $course)
+                                        <option value="{{ $course->id }}" {{ $AssignExam->CourseId == $course->id ? 'selected' : '' }}>{{ $course->Course_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label for="SubjectId">Subject Name</label>
+                         <select name="SubjectId" id="SubjectId" class="form-control">
+                             @foreach ($Subject as $subject)
+                             <option value="{{ $subject->id }}" {{ $AssignExam->SubjectId == $subject->id ? 'selected' : '' }}>
+                                 {{ $subject->subject_name }}
+                             </option>
+                             @endforeach
+                         </select>
+                     </div>
+                 </div>
+
+                 <!-- Batch Name -->
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label for="BatchId">Batch Name</label>
+                         <select name="BatchId" id="BatchId" class="form-control">
+                             @foreach ($Batch as $batch)
+                             <option value="{{ $batch->id }}" {{ $AssignExam->BatchId == $batch->id ? 'selected' : '' }}>
+                                 {{ $batch->batch_name }}
+                             </option>
+                             @endforeach
+                         </select>
+                     </div>
+                 </div>
+
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary float-right">Update Assign Exam</button>
                     </div>
                 </form>
             </div>
@@ -49,24 +86,23 @@
             theme: 'bootstrap4'
         });
 
-        // Handle form submission
+    $(document).ready(function() {
         $('#subjectForm').on('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
-            // Clear previous errors
-            $('#Course_name').text('');
-            // Get form data
-            let Course_name = $('#Course_name').val();
-            let id = $('#id').val();
-            $.ajax({
-                url: "{{ route('admin.course.update') }}", // The route for updating the subject
-                type: "POST"
-                , data: {
-                    Course_name: Course_name,
-                    id: id
-                    , _token: "{{ csrf_token() }}"
-                }
-                , success: function(response) {
+            let formData = {
+                ExamName: $('#ExamName').val()
+                , CourseId: $('#CourseId').val()
+                , Id: $('#Id').val()
+                , SubjectId: $('#SubjectId').val()
+                , BatchId: $('#BatchId').val()
+                , _token: '{{ csrf_token() }}', // CSRF token for Laravel
+            };
 
+            $.ajax({
+                url: '{{ route("admin.assign.update") }}', // Replace with your route name or URL
+                type: 'POST'
+                , data: formData
+                , success: function(response) {
                     // Show success toast
                     Swal.fire({
                         icon: 'success'
@@ -77,27 +113,26 @@
                         , timer: 3000
                     });
 
-                    setTimeout(() => {
-                    window.location.href = "{{ route('admin.course.index') }}";
-                    }, 3000); // Red
+                        setTimeout(() => {
+                        window.location.href = "{{ route('admin.assign.index') }}";
+                        }, 3000); // Red
 
                 }
                 , error: function(xhr) {
-                    // Display validation errors
-                    let errors = xhr.responseJSON.errors;
-                    if (errors && errors.subject_name) {
-                        $('#subject_name_error').text(errors.Course_name[0]);
-
+                    if (xhr.status === 422) {
+                        // Handle validation errors
+                        let errors = xhr.responseJSON.errors;
+                        if (errors.ExamName) {
+                            $('#Exam_name').text(errors.ExamName[0]);
+                        }
                     } else {
-                        Swal.fire({
-                            icon: 'error'
-                            , title: 'Oops...'
-                            , text: 'Something went wrong. Please try again.'
-                        , });
+                        alert('Something went wrong! Please try again.');
                     }
                 }
             });
         });
+    });
+
     });
 
 </script>

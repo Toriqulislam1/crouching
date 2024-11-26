@@ -39,14 +39,21 @@ class AssignExamService
     }
 
 
-    editAssignExam
-    public function updateBatch($SubjectId, array $data)
+
+    public function editAssignExam($AssignId)
     {
-        $batch_name = $data['batchName'];
-        $Subject = $this->editBatch($SubjectId);
-        $Subject->update(
+        return AssignExam::with(['course', 'subject', 'batch'])->findOrFail($AssignId);
+    }
+    public function updateAssignExam($AssignId, $request)
+    {
+        
+        $Assign = $this->editAssignExam($AssignId);
+        $Assign->update(
             [
-                'batch_name' =>$batch_name,
+                'name' => $request->ExamName,
+                'CourseId' => $request->CourseId,
+                'SubjectId' => $request->SubjectId,
+                'BatchId' => $request->BatchId
             ]
         );
     }

@@ -9,4 +9,9 @@ class Batch extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function exams()
+    {
+        return $this->hasMany(AssignExam::class, 'BatchId');
+    }
 }

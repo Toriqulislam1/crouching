@@ -183,7 +183,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/store', [AssignExamController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [AssignExamController::class, 'edit'])->name('edit');
             Route::delete('/destroy/{id}', [AssignExamController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [AssignExamController::class, 'SubjectUpdate'])->name('update');
+            Route::post('/update', [AssignExamController::class, 'Update'])->name('update');
         });
         //batch
         Route::prefix('batch')->name('batch.')->group(function () {
