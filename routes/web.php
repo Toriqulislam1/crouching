@@ -11,7 +11,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FinancialStatementsController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\AssignExamController;
-
+use App\Http\Controllers\MCQExamController;
+use App\Http\Controllers\moduleMcqController;
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:clear');
@@ -162,15 +163,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/destroy/{id}', [CourseController::class, 'destroy'])->name('destroy');
             Route::post('/update', [CourseController::class, 'update'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
         });
-            //exam
-            Route::prefix('exam')->name('exam.')->group(function () {
-            Route::get('/index', [ExamController::class, 'Index'])->name('index');
-            Route::get('/create', [ExamController::class, 'create'])->name('create');
-            Route::post('/store', [ExamController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
-            Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [ExamController::class, 'destroy'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
-        });
+
 
     });
 
@@ -185,26 +178,27 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/destroy/{id}', [AssignExamController::class, 'destroy'])->name('destroy');
             Route::post('/update', [AssignExamController::class, 'Update'])->name('update');
         });
-        //batch
-        Route::prefix('batch')->name('batch.')->group(function () {
-            Route::get('/index', [BatchController::class, 'Index'])->name('index');
-            Route::get('/create', [BatchController::class, 'create'])->name('create');
-            Route::post('/store', [BatchController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [BatchController::class, 'edit'])->name('edit');
-            Route::delete('/destroy/{id}', [BatchController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [BatchController::class, 'update'])->name('update');
-            Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+        //moduleMcq
+        Route::prefix('moduleMcq')->name('moduleMcq.')->group(function () {
+            Route::get('/index', [moduleMcqController::class, 'Index'])->name('index');
+            Route::get('/create', [moduleMcqController::class, 'create'])->name('create');
+            Route::post('/store', [moduleMcqController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [moduleMcqController::class, 'edit'])->name('edit');
+            Route::delete('/destroy/{id}', [moduleMcqController::class, 'destroy'])->name('destroy');
+            Route::post('/update', [moduleMcqController::class, 'update'])->name('update');
+            Route::delete('/update', [moduleMcqController::class, 'destroy'])->name('update');
         });
-        //course
-        Route::prefix('course')->name('course.')->group(function () {
-            Route::get('/index', [CourseController::class, 'Index'])->name('index');
-            Route::get('/create', [CourseController::class, 'create'])->name('create');
-            Route::post('/store', [CourseController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [CourseController::class, 'edit'])->name('edit');
-            Route::delete('/destroy/{id}', [CourseController::class, 'destroy'])->name('destroy');
-            Route::post('/update', [CourseController::class, 'update'])->name('update');
-            Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
-        });
+        //examMCQ
+        // Route::prefix('examMCQ')->name('mcq.')->group(function () {
+        //     Route::get('/index', [MCQExamController::class, 'Index'])->name('index');
+        //     Route::get('/create', [MCQExamController::class, 'create'])->name('create');
+        //     Route::post('/store', [MCQExamController::class, 'store'])->name('store');
+        //     Route::get('/edit/{id}', [MCQExamController::class, 'edit'])->name('edit');
+        //     Route::delete('/destroy/{id}', [MCQExamController::class, 'destroy'])->name('destroy');
+        //     Route::post('/update', [MCQExamController::class, 'update'])->name('update');
+        //     Route::delete('/update', [MCQExamController::class, 'destroy'])->name('update');
+        // });
+
         //exam
         Route::prefix('exam')->name('exam.')->group(function () {
             Route::get('/index', [ExamController::class, 'Index'])->name('index');
