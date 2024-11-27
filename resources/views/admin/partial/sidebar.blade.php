@@ -93,7 +93,13 @@
                         <li class="nav-item">
                             <a href="{{route('admin.moduleMcq.index')}}" class="nav-link {{Request::is('admin/get-privacy') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Module MCQ</p>
+                                <p>Module </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.mcq.index')}}" class="nav-link {{Request::is('admin/get-privacy') ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>MCQ </p>
                             </a>
                         </li>
                     </ul>

@@ -40,9 +40,8 @@ class MCQExamController extends Controller
     public function create(Request $request)
     {
         $data['page_title'] = "Mcq Create";
-        $data['Course'] = $this->McqService->GetAllCourse();
-        $data['Subject'] = $this->McqService->GetAllSubjet();
-        $data['Batch'] = $this->McqService->GetAllBatch();
+        $data['module'] = $this->McqService->GetAllModule();
+
         return view('admin.Mcq.create', $data);
     }
 

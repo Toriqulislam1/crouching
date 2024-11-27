@@ -3,7 +3,7 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="{{asset('public/assets')}}/select2/css/select2.min.css">
 <link rel="stylesheet" href="{{asset('public/assets')}}/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <!-- summernote -->
+<!-- summernote -->
 <link rel="stylesheet" href="{{asset('public/assets')}}/summernote/summernote-bs4.min.css">
 
 @endpush
@@ -20,40 +20,41 @@
                     </div>
                 </div>
             </div>
-                <div class="card-body">
-                    <form method="POST">
-                        @csrf
+            <div class="card-body">
+                <form method="POST">
+                    @csrf
+                    <div class="form-group">
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <select name="subject_id" id="subject" class="form-control">
-                                @foreach ($courses as $course)
-                                <optgroup label="{{ $course->name }}">
-                                    @foreach ($course->subjects as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                    @endforeach
-                                </optgroup>
+                            <label>Batch Select</label>
+                            <select name="batch[]" class="custom-select">
+                                <option value="0">module Name</option>
+                                @foreach ($module as $module)
+                                <option value="1">{{ $module->moduleName }}</option>
                                 @endforeach
+
+
                             </select>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="question">Question</label>
-                            <input type="text" name="question" id="question" class="form-control" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="question">Question</label>
+                        <input type="text" name="question" id="question" class="form-control" required>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="options">Options (comma-separated)</label>
-                            <input type="text" name="options[]" id="options" class="form-control" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="options">Options (comma-separated)</label>
+                        <input type="text" name="options[]" id="options" class="form-control" required>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="correct_answer">Correct Answer</label>
-                            <input type="text" name="correct_answer" id="correct_answer" class="form-control" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="correct_answer">Correct Answer</label>
+                        <input type="text" name="correct_answer" id="correct_answer" class="form-control" required>
+                    </div>
 
-                        <button type="submit" class="btn btn-primary">Add Question</button>
-                    </form>
-                </div>
+                    <button type="submit" class="btn btn-primary">Add Question</button>
+                </form>
+            </div>
             <!-- /.card -->
         </div>
         <!-- /.card -->
@@ -181,15 +182,15 @@
                     , _token: "{{ csrf_token() }}" // Pass the CSRF token
                 }
                 , success: function(response) {
-                     // Show success toast
-                     Swal.fire({
-                     icon: 'success',
-                     title: response.success,
-                     toast: true,
-                     position: 'top-end',
-                     showConfirmButton: false,
-                     timer: 3000
-                     });
+                    // Show success toast
+                    Swal.fire({
+                        icon: 'success'
+                        , title: response.success
+                        , toast: true
+                        , position: 'top-end'
+                        , showConfirmButton: false
+                        , timer: 3000
+                    });
 
                     $('#subjectForm')[0].reset(); // Reset the form
                 }
@@ -212,4 +213,3 @@
 
 </script>
 @endpush
-
