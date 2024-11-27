@@ -25,14 +25,12 @@
                     @csrf
                     <div class="form-group">
                         <div class="form-group">
-                            <label>Batch Select</label>
-                            <select name="batch[]" class="custom-select">
-                                <option value="0">module Name</option>
+                            <label>Module Select</label>
+                                <select id="module-select" name="module_id" class="custom-select" required>
+                                <option value="">Select module</option>
                                 @foreach ($module as $module)
-                                <option value="1">{{ $module->moduleName }}</option>
+                                <option value="{{ $module->id }}">{{ $module->moduleName }}</option>
                                 @endforeach
-
-
                             </select>
                         </div>
                     </div>
@@ -172,13 +170,18 @@
         $('#subjectForm').on('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
 
-            let subjectName = $('#batch_name').val(); // Get the subject name
-
+            let module_id = $('#module-select').val();
+            let question = $('#question').val();
+            let options = $('#options').val().split(','); // Split options by comma
+            let correct_answer = $('#correct_answer').val();
             $.ajax({
-                url: "{{ route('admin.batch.store') }}", // The route for storing the subject
+                url: "{{ route('admin.mcq.store') }}", // The route for storing the subject
                 type: "POST"
                 , data: {
-                    subject_name: subjectName
+                        module_id: module_id,
+                        question: question,
+                        options: options,
+                        correct_answer: correct_answer,
                     , _token: "{{ csrf_token() }}" // Pass the CSRF token
                 }
                 , success: function(response) {
