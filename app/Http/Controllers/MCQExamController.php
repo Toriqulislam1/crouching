@@ -32,8 +32,7 @@ class MCQExamController extends Controller
     public function Index()
     {
         $data['page_title'] = "Assign Exam List";
-        $data['Mcq'] = Mcq::all();
-
+        $data['Mcq'] = Mcq::with('options')->get();
         return view('admin.Mcq.index', $data);
     }
 
@@ -48,47 +47,21 @@ class MCQExamController extends Controller
 
     public function store(McqRequest $request)
     {
-dd("asdf");
-        // $request->validate([
-        //     'batch' => 'required|array|min:1',
-        //     'batch.*' => 'exists:modules,id', // Validate that the selected modules exist
-        //     'question' => 'required|string',
-        //     'options' => 'required|array|min:2', // At least two options
-        //     'correct_answer' => 'required|string|in:' . implode(',', $request->options), // Must be one of the options
-        // ]);
-
-        // Save the MCQ
-        $mcq = Mcq::create([
-            'module_id' => $request->batch[0],
-            'question' => $request->question,
-        ]);
-
-        // Save the options
-        foreach ($request->options as $key => $option) {
-            mcq_options::create([
-                'mcq_id' => $mcq->id,
-                'option_text' => $option,
-                'is_correct' => $option === $request->correct_answer,
-            ]);
-        }
-
-        // $this->McqService->McqStore($request);
+        $this->McqService->McqStore($request);
         return response()->json('Mcq added successfull');
     }
     public function edit($id)
     {
         $data['page_title'] = "Mcq Edit";
-
+        $data['module'] = $this->McqService->GetAllModule();
         $data['Mcq'] = $this->McqService->editMcq($id);
-        $data['Course'] = $this->McqService->GetAllCourse();
-        $data['Subject'] = $this->McqService->GetAllSubjet();
-        $data['Batch'] = $this->McqService->GetAllBatch();
 
         return view('admin.Mcq.edit', $data);
     }
     public function Update(McqRequest $request)
     {
-        $id = $request->Id;
+        $id = $request->id;
+       
 
         $this->McqService->updateMcq($id, $request); // store this package using services
         session()->flash('success', 'Successfully Created');

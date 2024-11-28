@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class mcq_options extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    
 }

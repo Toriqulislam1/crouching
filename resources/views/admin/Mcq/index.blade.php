@@ -30,6 +30,7 @@
                                     <tr>
                                         <th class="text-bold text-uppercase">#SL</th>
                                         <th class="text-bold text-uppercase">Mcq name </th>
+                                        <th class="text-bold text-uppercase">Options </th>
                                         <th class="text-bold text-uppercase">Action</th>
                                     </tr>
                                 </thead>
@@ -40,6 +41,16 @@
                                     <tr>
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $Mcq->question}}</td>
+                                        <td>
+                                            @foreach ($Mcq->options as $option)
+
+                                                {{ $option->option_text }}
+                                                @if ($option->is_correct)
+                                                <strong>(Correct)</strong>,
+                                                @endif
+
+                                            @endforeach
+                                        </td>
                                         <td>
                                             @if($Mcq->id !== 1)
                                             <a class="btn btn-sm btn-primary fa fa-edit" href="{{ route('admin.mcq.edit',$Mcq->id) }}" title="Edit"></a>

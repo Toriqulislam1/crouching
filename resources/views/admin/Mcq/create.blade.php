@@ -22,6 +22,7 @@
             </div>
             <div class="card-body">
                 <form id="subjectForm">
+                    @csrf
                     <div class="form-group">
                         <div class="form-group">
                             <label>Module Select</label>
@@ -163,57 +164,61 @@
     });
 
 </script> --}}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
 
 <script>
+    $(document).ready(function() {
+        $('#subjectForm').on('submit', function(e) {
 
-       $(document).ready(function() {
-       $('#subjectForm').on('submit', function(e) {
-        console.log("asdf");
-       e.preventDefault(); // Prevent the default form submission
+            e.preventDefault(); // Prevent the default form submission
 
-       // Gather form data
-       let formData = {
-       module_id: $('#module-select').val(),
-       question: $('#question').val(),
-       options: $('#options').val().split(','), // Split options by comma
-       correct_answer: $('#correct_answer').val(),
-       _token: "{{ csrf_token() }}" // CSRF token
-       };
 
-       // Send AJAX request
-       $.ajax({
-       url: "{{ route('admin.mcq.store') }}", // The route for storing MCQ
-       type: "POST",
-       data: formData,
-       success: function(response) {
-       // Display success message
-       Swal.fire({
-       icon: 'success',
-       title: response.success,
-       toast: true,
-       position: 'top-end',
-       showConfirmButton: false,
-       timer: 3000
-       });
+            let module_id =$('#module-select').val();
+            let question =$('#question').val();
+            let options = $('#options').val().split(','); // Split options by comma
+            let correct_answer = $('#correct_answer').val();
+            $.ajax({
+                url: "{{ route('admin.mcq.store') }}", // The route for storing the subject
+                type: "POST"
+                , data: {
+                    module_id: module_id,
+                    question: question,
+                    options:options,
+                    correct_answer: correct_answer
+                    , _token: "{{ csrf_token() }}" // Pass the CSRF token
+                }
+                , success: function(response) {
+                    // Show success toast
+                    Swal.fire({
+                        icon: 'success'
+                        , title: response.success
+                        , toast: true
+                        , position: 'top-end'
+                        , showConfirmButton: false
+                        , timer: 3000
+                    });
 
-       // Reset the form
-       $('#subjectForm')[0].reset();
-       },
-       error: function(xhr) {
-       // Handle validation errors
-       let errors = xhr.responseJSON.errors;
-       if (errors) {
-       let errorMessage = '';
-       for (let field in errors) {
-       errorMessage += errors[field][0] + '\n';
-       }
-       alert(errorMessage);
-       } else {
-       alert('Something went wrong. Please try again.');
-       }
-       }
-       });
-       });
+                    $('#subjectForm')[0].reset(); // Reset the form
+                }
+                , error: function(xhr) {
+                    // Handle error response
+                    let errors = xhr.responseJSON.errors;
+                    if (errors) {
+                        let errorMessage = '';
+                        for (let field in errors) {
+                            errorMessage += errors[field][0] + '\n';
+                        }
+                        alert(errorMessage);
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                    }
+                }
+            });
+        });
+    });
 
 </script>
+
 @endpush
