@@ -7,7 +7,7 @@ use App\Services\McqService;
 use App\Services\SubjectService;
 use Illuminate\Http\Request;
 use App\Models\Mcq;
-use App\Models\expense_catagory;
+use App\Models\mcq_options;
 use Carbon\Carbon;
 use App\Http\Requests\McqRequest;
 use App\Http\Requests\SubjectRequest;
@@ -45,9 +45,34 @@ class MCQExamController extends Controller
         return view('admin.Mcq.create', $data);
     }
 
+
     public function store(McqRequest $request)
     {
-        $this->McqService->McqStore($request);
+dd("asdf");
+        // $request->validate([
+        //     'batch' => 'required|array|min:1',
+        //     'batch.*' => 'exists:modules,id', // Validate that the selected modules exist
+        //     'question' => 'required|string',
+        //     'options' => 'required|array|min:2', // At least two options
+        //     'correct_answer' => 'required|string|in:' . implode(',', $request->options), // Must be one of the options
+        // ]);
+
+        // Save the MCQ
+        $mcq = Mcq::create([
+            'module_id' => $request->batch[0],
+            'question' => $request->question,
+        ]);
+
+        // Save the options
+        foreach ($request->options as $key => $option) {
+            mcq_options::create([
+                'mcq_id' => $mcq->id,
+                'option_text' => $option,
+                'is_correct' => $option === $request->correct_answer,
+            ]);
+        }
+
+        // $this->McqService->McqStore($request);
         return response()->json('Mcq added successfull');
     }
     public function edit($id)

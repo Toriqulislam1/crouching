@@ -12,7 +12,7 @@ class McqService
         return moduleMcq::latest()->get();
     }
 
-    public function editSubject($SubjectId)
+    public function McqStore($SubjectId)
     {
         return Subject::findOrFail($SubjectId);
     }
