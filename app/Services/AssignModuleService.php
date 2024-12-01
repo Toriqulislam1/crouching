@@ -4,38 +4,25 @@ namespace App\Services;
 
 use App\Models\Batch;
 use App\Models\Course;
-use App\Models\Subject;
+use App\Models\AssignModule;
+;
 use App\Models\AssignExam;
 
-class AssignExamService
+class AssignModuleService
 {
-    public function GetAllCourse()
+    public function GetAllAssignModule()
     {
-        return Course::latest()->get();
-    }
-    public function GetAllSubjet()
-    {
-        return Subject::latest()->get();
-    }
-    public function GetAllBatch()
-    {
-        return Batch::latest()->get();
+        return AssignModule::with(['module', 'exam'])->get();
     }
 
-    public function editBatch($SubjectId)
-    {
-        return Batch::findOrFail($SubjectId);
-    }
-
-    public function AssignExamStore($request)
+    public function AssignModuleStore($request)
     {
         // Save the subject
-        $exam = new AssignExam();
-        $exam->name = $request->ExamName;
-        $exam->CourseId = $request->CourseId;
-        $exam->SubjectId = $request->SubjectId;
-        $exam->BatchId = $request->BatchId;
-        $exam->save();
+        $AssignModule = new AssignModule();
+        $AssignModule->module_id = $request->ModuleId;
+        $AssignModule->exam_id = $request->ExamId;
+
+        $AssignModule->save();
     }
 
 
@@ -64,7 +51,7 @@ class AssignExamService
         $package->delete();
     }
 
-    
+
 
 
 

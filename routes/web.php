@@ -13,6 +13,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\AssignExamController;
 use App\Http\Controllers\MCQExamController;
 use App\Http\Controllers\moduleMcqController;
+use App\Http\Controllers\moduleAssignController;
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:clear');
@@ -199,16 +200,16 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/update', [MCQExamController::class, 'destroy'])->name('update');
         });
 
-        //exam
-        // Route::prefix('exam')->name('exam.')->group(function () {
-        //     Route::get('/index', [ExamController::class, 'Index'])->name('index');
-        //     Route::get('/create', [ExamController::class, 'create'])->name('create');
-        //     Route::post('/store', [ExamController::class, 'store'])->name('store');
-        //     Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
-        //     Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
-        //     Route::post('/update', [ExamController::class, 'destroy'])->name('update');
-        //     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
-        // });
+        //module assign
+        Route::prefix('module/assign')->name('module.assign.')->group(function () {
+            Route::get('/index', [moduleAssignController::class, 'Index'])->name('index');
+            Route::get('/create', [moduleAssignController::class, 'create'])->name('create');
+            Route::post('/store', [moduleAssignController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [moduleAssignController::class, 'edit'])->name('edit');
+            Route::delete('/destroy/{id}', [moduleAssignController::class, 'destroy'])->name('destroy');
+            Route::post('/update', [moduleAssignController::class, 'destroy'])->name('update');
+            Route::delete('/update', [moduleAssignController::class, 'destroy'])->name('update');
+        });
     });
 
 

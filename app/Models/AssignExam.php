@@ -23,6 +23,9 @@ class AssignExam extends Model
     {
         return $this->belongsTo(Batch::class, 'BatchId');
     }
-
+    public function assignModules()
+    {
+        return $this->hasMany(AssignModule::class, 'examId'); // Foreign key in AssignModule is 'examId'
+    }
 
 }

@@ -97,6 +97,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('admin.module.assign.index')}}" class="nav-link {{Request::is('module/assign/index') ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Module Assign</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('admin.mcq.index')}}" class="nav-link {{Request::is('admin/get-privacy') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>MCQ </p>
