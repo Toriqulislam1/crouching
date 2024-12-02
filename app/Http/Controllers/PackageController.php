@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PackageRequest;
 use App\Services\PackageService;
-
+use App\Services\AssignExamService;
+use App\Http\Requests\AssignExamRequest;
 class PackageController extends Controller
 {
-    protected $packageService;
+    protected $packageService, $AssignExamService;
 
-    public function __construct(PackageService $packageService)
+    public function __construct(PackageService $packageService,AssignExamService $AssignExamService)
     {
         $this->middleware(['auth','Setting','isAdmin']);
         $this->packageService = $packageService;
+        $this->AssignExamService = $AssignExamService;
+
 
     }
     public function index ()
@@ -23,7 +26,11 @@ class PackageController extends Controller
     }
     public function create()
     {
+        $data['Course'] = $this->AssignExamService->GetAllCourse();
+        $data['Subject'] = $this->AssignExamService->GetAllSubjet();
+        $data['Batch'] = $this->AssignExamService->GetAllBatch();
         $data['page_title'] = "Add New Course";
+
         return view('admin.package.create',$data);
     }
 
@@ -46,7 +53,7 @@ class PackageController extends Controller
         $data['page_title'] = "Course Edit";
         $data['package'] = $this->packageService->editPackage($id);
         return view('admin.package.edit',$data);
-    }                                                    
+    }
     public function update(PackageRequest $request, $id)
     {
         $in = $request->all();

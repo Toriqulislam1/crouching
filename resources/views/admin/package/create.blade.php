@@ -25,8 +25,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Course name<code>*</code></label>
-                            <input type="text" class="form-control" name="course_name" value="{{old('course_name')}}" required placeholder="Course name">
+                            <label>Course name</label>
+                            <select name="course_id" class="custom-select">
+                                @foreach ($Course as $Course)
+                                <option value="{{ $Course }}">{{ $Course->Course_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -57,8 +61,10 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Subject Select</label>
-                            <select name="batch[]" class="custom-select">
-                                <option value="0">Batch 1</option>
+                            <select name="subject_id[]" class="custom-select">
+                                @foreach ($Subject as $Subject)
+                                    <option value="{{ $Subject->id }}">{{ $Subject->subject_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -66,12 +72,9 @@
                         <div class="form-group">
                             <label>Batch Select</label>
                             <select name="batch[]" class="custom-select">
-                                <option value="0">Batch 1</option>
-                                <option value="1">Batch 2</option>
-                                <option value="2">Batch 3</option>
-                                <option value="3">Batch 4</option>
-                                <option value="4">Batch 5</option>
-
+                                @foreach ($Batch as $Batch)
+                                    <option value="{{ $Batch->id }}">{{ $Batch->batch_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

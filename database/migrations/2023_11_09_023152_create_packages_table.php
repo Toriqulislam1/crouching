@@ -16,13 +16,15 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('title','100');
             $table->string('short_title','100');
             $table->float('price');
             $table->float('discount_amount')->default('0');
             $table->integer('discount_percent')->default('0');
             $table->float('final_price');
             $table->longText('feature');
+            $table->string('days');
+            $table->string('start_time');
+            $table->string('end_time');
             $table->tinyInteger('status')->default('1')->comment('1 is active');
             $table->timestamps();
 
