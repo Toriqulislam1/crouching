@@ -9,9 +9,10 @@ class moduleMcq extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    
+
     public function assignModules()
     {
         return $this->hasMany(AssignModule::class, 'moduleId'); // Foreign key in AssignModule is 'moduleId'
     }
+    
 }

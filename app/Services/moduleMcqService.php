@@ -9,7 +9,7 @@ class moduleMcqService
 {
     public function getAllcoduleMcq()
     {
-        return moduleMcq::latest()->get();
+        return moduleMcq::latest()->with('module','exam')->get();
     }
     public function editModuleMcq($moduleId)
     {
@@ -25,7 +25,7 @@ class moduleMcqService
     }
     public function updateModuleMcq($moduleId, $request)
     {
-       
+
         $module = $this->editModuleMcq($moduleId);
         $module->update([
             'moduleName' => $request->moduleName,
