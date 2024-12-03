@@ -9,10 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\transactions;
 use App\Models\expense_catagory;
 use Carbon\Carbon;
-use App\Models\Exam;
+use App\Models\Order;
 use App\Http\Requests\SubjectRequest;
-
-
+use Illuminate\Support\Facades\Auth;
 class ExamController extends Controller
 {
     protected $packageService;
@@ -26,12 +25,15 @@ class ExamController extends Controller
         $this->ExamService = $ExamService;
         $this->SubjectService = $SubjectService;
     }
-    public function Index(){
-        $data['page_title'] = "Exam List";
-        $data['subjects'] = Exam::all();
+    public function Index()
+    {
+        $data['page_title'] = "Assign Exam List";
+        $user_id = auth::user()->id;
+        $data['ExamList'] = Order::where('user_id',$user_id);
 
-        return view('admin.exam.index',$data);
+        return view('admin.students.ExamList.index', $data);
     }
+
 
     public function create(Request $request){
         $data['page_title'] = "Exam Create";

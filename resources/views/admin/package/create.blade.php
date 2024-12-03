@@ -97,13 +97,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Start Time:</label>
-                                        <input type="time" name="start_time[]" class="form-control">
+                                        <input type="time" name="start_time[]" class="form-control" value="08:00">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>End Time:</label>
-                                        <input type="time" name="end_time[]" class="form-control">
+                                        <input type="time" name="end_time[]" class="form-control" value="17:00">
                                     </div>
                                 </div>
                                 <div class="col-md-3">

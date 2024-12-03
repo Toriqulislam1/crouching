@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\parmentStaticController;
 use App\Http\Controllers\BatchController;
-use App\Http\Controllers\students\ExamController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FinancialStatementsController;
@@ -14,6 +14,9 @@ use App\Http\Controllers\AssignExamController;
 use App\Http\Controllers\MCQExamController;
 use App\Http\Controllers\moduleMcqController;
 use App\Http\Controllers\moduleAssignController;
+
+
+
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:clear');
@@ -47,7 +50,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
 Route::prefix('student')->name('student.')->group(function () {
     //Exam assign
     Route::prefix('Exam')->name('exam.')->group(function () {
-        Route::get('/index', [ExamController::class, 'Index'])->name('index');
+        Route::get('/index', [ExamController::class, 'index'])->name('index');
         Route::get('/create', [ExamController::class, 'create'])->name('create');
         Route::post('/store', [ExamController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
@@ -86,22 +89,6 @@ Route::prefix('student')->name('student.')->group(function () {
         Route::delete('/update', [moduleAssignController::class, 'destroy'])->name('update');
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // backend route
 Auth::routes();

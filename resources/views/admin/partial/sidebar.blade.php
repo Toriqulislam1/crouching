@@ -20,7 +20,7 @@
         </div>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            {{-- @if($user->hasRole('customer')) --}}
+            @if($user->hasRole('customer'))
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
@@ -36,13 +36,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('order')}}" class="nav-link {{Request::is('admin/order') ? 'active' : ''}}">
+                    <a href="{{route('student.exam.index')}}" class="nav-link {{Request::is('admin/order') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-paperclip"></i>
                         <p>Exam List</p>
                     </a>
                 </li>
             </ul>
-            {{-- @endif --}}
+            @endif
             @if($user->hasRole('admin'))
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->

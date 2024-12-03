@@ -30,11 +30,14 @@
                                     <tr>
                                         <th class="text-bold text-uppercase">#SL</th>
                                         <th class="text-bold text-uppercase">Course name </th>
+                                        <th class="text-bold text-uppercase">Subjet name </th>
+                                        <th class="text-bold text-uppercase">Batch name </th>
+                                        <th class="text-bold text-uppercase">Exam name </th>
                                         <th class="text-bold text-uppercase">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($Course as $key => $Course)
+                                    {{-- @foreach ($Course as $key => $Course)
                                         <tr>
                                             <td>{{ ++$key }}</td>
                                             <td>{{ $Course->Course_name  }}</td>
@@ -47,7 +50,7 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
