@@ -7,7 +7,7 @@ use App\Services\AssignExamService;
 use App\Services\SubjectService;
 use Illuminate\Http\Request;
 use App\Models\AssignExam;
-use App\Models\expense_catagory;
+use App\Models\Mcq;
 use Carbon\Carbon;
 use App\Http\Requests\AssignExamRequest;
 use App\Http\Requests\SubjectRequest;
@@ -43,6 +43,8 @@ class AssignExamController extends Controller
         $data['Course'] = $this->AssignExamService->GetAllCourse();
         $data['Subject'] = $this->AssignExamService->GetAllSubjet();
         $data['Batch'] = $this->AssignExamService->GetAllBatch();
+        $data['Mcq'] = Mcq::with('options')->paginate(10);
+        
         return view('admin.AssignExam.create', $data);
     }
 
@@ -65,7 +67,7 @@ class AssignExamController extends Controller
     public function Update(AssignExamRequest $request)
     {
         $id = $request->Id;
-        
+
         $this->AssignExamService->updateAssignExam($id,$request); // store this package using services
         session()->flash('success', 'Successfully Created');
         return response()->json('Update successfull');
