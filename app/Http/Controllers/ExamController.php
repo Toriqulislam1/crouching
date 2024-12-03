@@ -33,6 +33,7 @@ class ExamController extends Controller
         $data['page_title'] = "Assign Exam List";
         $user_id = auth::user()->id;
         $data['ExamList'] = $this->orderService->getUserOrders($user_id);
+        dd($data['ExamList']);
 
         return view('admin.students.ExamList.index', $data);
     }

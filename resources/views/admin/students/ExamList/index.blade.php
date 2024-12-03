@@ -37,20 +37,26 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {{-- @foreach ($Course as $key => $Course)
+                                    @foreach ($ExamList as $key => $ExamList)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $Course->Course_name  }}</td>
+                                            <td>{{ $ExamList->package->course->Course_name  }}</td>
+                                            <td>{{ $ExamList->package->course->subject_id  }}</td>
+                                            <td>{{ $ExamList->package->course->batch_id  }}</td>
+                                            <td>{{ $ExamList->package->course->Course_name  }}</td>
+                                            <td>{{ $ExamList->package->course->Course_name  }}</td>
+                                            <td>{{ $ExamList->package->course->Course_name  }}</td>
+
                                             <td>
-                                                @if($Course->id !== 1)
-                                                 <a class="btn btn-sm btn-primary fa fa-edit" href="{{ route('admin.course.edit',$Course->id) }}" title="Edit"></a>
+                                                @if($ExamList->id !== 1)
+                                                 <a class="btn btn-sm btn-primary fa fa-edit" href="{{ route('admin.course.edit',$ExamList->id) }}" title="Edit"></a>
                                                    @can('delete')
-                                                       {!! Form::button('<i class="fa fa-trash"></i> ', ['title' => 'Delete', 'class' => 'btn btn-sm btn-danger bold uppercase delete_button','data-toggle'=>"modal",'data-target'=>"#DelModal",'data-id'=>$Course->id]) !!}
+                                                       {!! Form::button('<i class="fa fa-trash"></i> ', ['title' => 'Delete', 'class' => 'btn btn-sm btn-danger bold uppercase delete_button','data-toggle'=>"modal",'data-target'=>"#DelModal",'data-id'=>$ExamList->id]) !!}
                                                    @endcan
                                                 @endif
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
