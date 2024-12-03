@@ -25,6 +25,7 @@ class CreatePackagesTable extends Migration
             $table->string('days');
             $table->string('start_time');
             $table->string('end_time');
+            $table->string('course_id');
             $table->tinyInteger('status')->default('1')->comment('1 is active');
             $table->timestamps();
         });

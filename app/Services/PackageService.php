@@ -18,7 +18,7 @@ class PackageService
 
     public function storePackage(array $data)
     {
-        
+
         $requestAmount = $data['price'];
         if ($data['discount_percent']) {
             if (strpos($data['discount_percent'], '%') !== false) {
@@ -33,6 +33,7 @@ class PackageService
 
         $totalAmount = $requestAmount - $discountAmount;
         $data['final_price'] = $totalAmount;
+        $data['course_id'] = $data['course_id'];
         $data['feature'] = json_encode($data['feature']);
         $data['batch'] = json_encode($data['batch']);
         $data['start_time'] = json_encode($data['start_time']);
