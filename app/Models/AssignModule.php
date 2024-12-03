@@ -14,12 +14,12 @@ class AssignModule extends Model
 
     public function module()
     {
-        return $this->belongsTo(Module::class, 'module_id');
+        return $this->belongsTo(moduleMcq::class, 'module_id');
     }
 
     public function exam()
     {
-        return $this->belongsTo(Exam::class, 'exam_id');
+        return $this->belongsTo(AssignExam::class, 'exam_id');
     }
 
 }
