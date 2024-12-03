@@ -18,7 +18,7 @@
                             <h3 class="card-title">{{$page_title}}</h3>
                             <div class="pull-right box-tools">
                                 <div class="float-right mt-1">
-                                    <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.create') }}">New Course Add</a>
+                                    {{-- <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.create') }}">New Course Add</a> --}}
                                 </div>
                             </div>
                         </div>

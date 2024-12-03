@@ -71,7 +71,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Batch Select</label>
-                            <select name="batch[]" class="custom-select">
+                            <select name="batch_id[]" class="custom-select">
                                 @foreach ($Batch as $Batch)
                                     <option value="{{ $Batch->id }}">{{ $Batch->batch_name }}</option>
                                 @endforeach

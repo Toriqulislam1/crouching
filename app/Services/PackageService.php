@@ -35,7 +35,8 @@ class PackageService
         $data['final_price'] = $totalAmount;
         $data['course_id'] = $data['course_id'];
         $data['feature'] = json_encode($data['feature']);
-        $data['batch'] = json_encode($data['batch']);
+        $data['batch_id'] = json_encode($data['batch_id']);
+        $data['subject_id'] = json_encode($data['subject_id']);
         $data['start_time'] = json_encode($data['start_time']);
         $data['end_time'] = json_encode($data['end_time']);
         $data['days'] = json_encode($data['days']);

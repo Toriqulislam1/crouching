@@ -12,24 +12,27 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Http\Requests\SubjectRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Services\OrderService;
 class ExamController extends Controller
 {
     protected $packageService;
     protected $ExamService;
     protected $SubjectService;
+    protected $orderService;
 
-    public function __construct(PackageService $packageService, ExamService $ExamService,SubjectService $SubjectService)
+    public function __construct(PackageService $packageService, ExamService $ExamService,SubjectService $SubjectService, OrderService $orderService)
     {
         $this->middleware(['auth', 'Setting']);
         $this->packageService = $packageService;
         $this->ExamService = $ExamService;
         $this->SubjectService = $SubjectService;
+        $this->orderService = $orderService;
     }
     public function Index()
     {
         $data['page_title'] = "Assign Exam List";
         $user_id = auth::user()->id;
-        $data['ExamList'] = Order::where('user_id',$user_id);
+        $data['ExamList'] = $this->orderService->getUserOrders($user_id);
 
         return view('admin.students.ExamList.index', $data);
     }

@@ -28,7 +28,7 @@ class PackageRequest extends FormRequest
             'price'             => 'required|numeric',
             'discount_percent'  => 'nullable',
             'feature.*'         => 'required',
-            'batch'         => 'required',
+            'batch_id'         => 'required',
         ];
     }
 }
