@@ -30,7 +30,7 @@
                                     <span class="text-danger" id="Exam_name"></span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="Course">Course Name</label>
                                     <select name="Course_id" id="CourseId" class="form-control">
@@ -39,7 +39,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="subject">Subject Name</label>
@@ -53,6 +53,16 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="subject">Batch Name</label>
+                                    <select name="Batch_id" id="BatchId" class="form-control">
+                                        @foreach ($Batch as $Batch)
+                                          <option value="{{ $Batch->id }}">{{ $Batch->batch_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="subject">Exam Time</label>
                                     <select name="Batch_id" id="BatchId" class="form-control">
                                         @foreach ($Batch as $Batch)
                                           <option value="{{ $Batch->id }}">{{ $Batch->batch_name }}</option>

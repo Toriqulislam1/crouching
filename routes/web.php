@@ -220,7 +220,7 @@ Route::group(['middleware' => 'auth'], function () {
     //manage Exam
     Route::prefix('admin')->name('admin.')->group(function () {
         //Exam assign
-        Route::prefix('AssignExam')->name('assign.')->group(function () {
+        Route::prefix('exam')->name('assign.')->group(function () {
             Route::get('/index', [AssignExamController::class, 'Index'])->name('index');
             Route::get('/create', [AssignExamController::class, 'create'])->name('create');
             Route::post('/store', [AssignExamController::class, 'store'])->name('store');
@@ -239,7 +239,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/update', [moduleMcqController::class, 'destroy'])->name('update');
         });
         //examMCQ
-        Route::prefix('examMCQ')->name('mcq.')->group(function () {
+        Route::prefix('mcq')->name('mcq.')->group(function () {
             Route::get('/index', [MCQExamController::class, 'Index'])->name('index');
             Route::get('/create', [MCQExamController::class, 'create'])->name('create');
             Route::post('/store', [MCQExamController::class, 'store'])->name('store');
