@@ -27,8 +27,6 @@ class CreatePackagesTable extends Migration
             $table->string('end_time');
             $table->tinyInteger('status')->default('1')->comment('1 is active');
             $table->timestamps();
-
-            $table->index('title'); // Single column index
         });
     }
 
