@@ -8,7 +8,7 @@ class PackageService
 {
     public function getAllPackages()
     {
-        return Package::latest()->get();
+        return Package::latest()->with('course:id,Course_name')->get();
     }
 
     public function editPackage($packageId)

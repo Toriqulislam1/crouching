@@ -42,7 +42,7 @@
                                     @foreach ($packages as $key => $package)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $package->course_name  }}</td>
+                                            <td>{{ $package->course->Course_name }}</td>
                                             <td>{{ $package->short_title }}</td>
                                             <td>{{ $package->price }}</td>
                                             <td>{{ $package->discount_percent }}</td>
