@@ -67,76 +67,39 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="text-bold text-uppercase">#SL</th>
-                                        <th class="text-bold text-uppercase">Select</th>
-                                        <th class="text-bold text-uppercase">MCQ Name</th>
-                                        <th class="text-bold text-uppercase">Options</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($Mcq as $key => $Mcq)
-                                    <tr>
-                                        <td>{{ $Mcq->id }}</td>
-                                        <td>
-                                            <input type="checkbox" name="questions[]" value="{{ $Mcq->id }}">
-                                        </td>
-                                        <td>{{ $Mcq->question }}</td>
-                                        <td>
-                                            @foreach ($Mcq->options as $option)
-                                            {{ $option->option_text }}
-                                            @if ($option->is_correct)
-                                            <strong>(Correct)</strong>
-                                            @endif
-                                            <br>
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="select-all" />
+            </th>
+            <th>Question</th>
+            <th>
+                <input type="checkbox" id="select-all-right" />
+            </th>
+            <th>Question</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($Mcq->chunk(2) as $chunk)
+        <tr>
+            @foreach ($chunk as $mcq)
+            <td>
+                <input type="checkbox" class="question-checkbox" data-question-name="{{ $mcq->question }}" value="{{ $mcq->id }}" />
+            </td>
+            <td>{{ $mcq->question }}</td>
+            @endforeach
+            @if ($chunk->count() < 2) <td>
+                </td>
+                <td></td>
+                @endif
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 
-                        </div>
-                    </div>
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" id="select-all" />
-                                </th>
-                                <th>Question</th>
-                                <th>
-                                    <input type="checkbox" id="select-all-right" />
-                                </th>
-                                <th>Question</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($Mcq->chunk(2) as $chunk)
-                            <tr>
-                                @foreach ($chunk as $mcq)
-                                <td>
-                                    <input type="checkbox" class="question-checkbox" data-question-name="{{ $mcq->question }}" value="{{ $mcq->id }}" />
-                                </td>
-                                <td>{{ $mcq->question }}</td>
-                                @endforeach
-                                @if ($chunk->count() < 2) <td>
-                                    </td>
-                                    <td></td>
-                                    @endif
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                {{ $Mcq->links() }}
-                    <!-- Render pagination links -->
-                    {{ $Mcq->links() }}
-
+<!-- Render pagination links -->
+{{ $Mcq->links() }}
 
 
                     <div class="card-footer">
@@ -161,7 +124,7 @@
         event.preventDefault();
         let formData = $(this).serialize();
         $.ajax({
-            // url: ""
+
             , method: 'POST'
             , data: formData
             , success: function(response) {
