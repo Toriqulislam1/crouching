@@ -12,7 +12,7 @@
                 <h3 class="card-title">{{ $page_title }}</h3>
                 <div class="pull-right box-tools">
                     <div class="float-right mt-1">
-                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.batch.index') }}"> Back</a>
+                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.mcq.index') }}"> Back</a>
                     </div>
                 </div>
             </div>
@@ -20,36 +20,19 @@
                 <form id="subjectForm">
                     @csrf
                     <input type="hidden" id="id" name="" value="{{ $Mcq->id }}">
-
                     <div class="form-group">
-                        <div class="form-group">
-                            <label>Module Select</label>
-                            <select id="module-select" name="module_id" class="custom-select" required>
-                                <option value="">Select module</option>
-                                @foreach ($module as $module)
-                                <option value="{{ $module->id }}">{{ $module->moduleName }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="question">Question</label>
+                        <label for="question">Question Name</label>
                         <input type="text" name="question" value="{{ $Mcq->question }}" id="question" class="form-control" required>
                     </div>
-
                     <div class="form-group">
                         <label for="options">Options (comma-separated)</label>
                         <input type="text" name="options[]" value="{{ $Mcq->options->pluck('option_text')->implode(', ') }}" id="options" class="form-control" required>
-
                     </div>
-
                     <div class="form-group">
                         <label for="correct_answer">Correct Answer</label>
                         <input type="text" name="correct_answer" value="{{ $Mcq->options->firstWhere('is_correct', true)->option_text ?? 'No correct answer set' }}" id="correct_answer" class="form-control" required>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Add Question</button>
+                    <button type="submit" class="btn btn-primary">Update Question</button>
                 </form>
             </div>
         </div>
@@ -74,8 +57,6 @@
 
     e.preventDefault(); // Prevent the default form submission
 
-
-    let module_id =$('#module-select').val();
     let id =$('#id').val();
 
     let question =$('#question').val();
@@ -85,7 +66,6 @@
     url: "{{ route('admin.mcq.update') }}", // The route for storing the subject
     type: "POST"
     , data: {
-    module_id: module_id,
     id: id,
     question: question,
     options:options,

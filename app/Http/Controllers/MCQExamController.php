@@ -31,7 +31,7 @@ class MCQExamController extends Controller
 
     public function Index()
     {
-        $data['page_title'] = "Assign Exam List";
+        $data['page_title'] = "MCQ List";
         $data['Mcq'] = Mcq::with('options')->get();
         return view('admin.Mcq.index', $data);
     }
@@ -61,7 +61,7 @@ class MCQExamController extends Controller
     public function Update(McqRequest $request)
     {
         $id = $request->id;
-       
+
 
         $this->McqService->updateMcq($id, $request); // store this package using services
         session()->flash('success', 'Successfully Created');

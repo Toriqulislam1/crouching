@@ -45,7 +45,7 @@ class McqService
 
         // Update the MCQ question
         $mcq->update([
-            'module_id' => $request->module_id,
+            'module_id' => 0,
             'question' => $request->question,
         ]);
         // Handle the options update
