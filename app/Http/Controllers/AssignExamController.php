@@ -34,12 +34,12 @@ class AssignExamController extends Controller
         $data['page_title'] = "Assign Exam List";
         $data['AssignExam'] = AssignExam::all();
 
-        return view('admin.AssignExam.index', $data);
+        return view('admin.Exam.index', $data);
     }
 
     public function create(Request $request)
     {
-        $data['page_title'] = "AssignExam Create";
+        $data['page_title'] = "Exam Create";
         $data['Course'] = $this->AssignExamService->GetAllCourse();
         $data['Subject'] = $this->AssignExamService->GetAllSubjet();
         $data['Batch'] = $this->AssignExamService->GetAllBatch();
@@ -55,7 +55,7 @@ class AssignExamController extends Controller
     }
     public function edit($id)
     {
-        $data['page_title'] = "AssignExam Edit";
+        $data['page_title'] = "Exam Edit";
 
         $data['AssignExam'] = $this->AssignExamService->editAssignExam($id);
         $data['Course'] = $this->AssignExamService->GetAllCourse();

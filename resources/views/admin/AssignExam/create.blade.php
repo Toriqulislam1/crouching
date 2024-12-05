@@ -128,7 +128,7 @@
             let formData = $(this).serialize();
             $.ajax({
 
-                url: "{{ route('admin.exam.store') }}",
+                url: "{{ route('admin.assign.store') }}",
                 method: 'POST',
                 data: formData,
                 success: function(response) {
