@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="{{asset('public/assets')}}/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 <!-- summernote -->
 <link rel="stylesheet" href="{{asset('public/assets')}}/summernote/summernote-bs4.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 @endpush
 @section('content')
 <section class="content">
@@ -66,7 +69,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="text-bold text-uppercase">#SL</th>
@@ -96,10 +99,44 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="select-all" />
+                                </th>
+                                <th>Question</th>
+                                <th>
+                                    <input type="checkbox" id="select-all-right" />
+                                </th>
+                                <th>Question</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($Mcq->chunk(2) as $chunk)
+                            <tr>
+                                @foreach ($chunk as $mcq)
+                                <td>
+                                    <input type="checkbox" class="question-checkbox" data-question-name="{{ $mcq->question }}" value="{{ $mcq->id }}" />
+                                </td>
+                                <td>{{ $mcq->question }}</td>
+                                @endforeach
+                                @if ($chunk->count() < 2) <td>
+                                    </td>
+                                    <td></td>
+                                    @endif
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
-                     {{ $Mcq->links() }}
+                {{ $Mcq->links() }}
+                    <!-- Render pagination links -->
+                    {{ $Mcq->links() }}
+
 
 
                     <div class="card-footer">
@@ -124,7 +161,7 @@
         event.preventDefault();
         let formData = $(this).serialize();
         $.ajax({
-            url: "{{ route('admin.exam.store') }}"
+            // url: ""
             , method: 'POST'
             , data: formData
             , success: function(response) {
@@ -142,6 +179,16 @@
         });
     });
 
+</script>
+<script>
+    $(function() {
+    $('#example1').DataTable({
+    "paging": false, // Disable DataTable's pagination
+    "ordering": true,
+    "info": true,
+    "searching": true,
+    });
+    });
 </script>
 @endpush
 
