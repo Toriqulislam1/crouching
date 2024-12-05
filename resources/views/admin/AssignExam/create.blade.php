@@ -1,4 +1,5 @@
 @extends('admin.layout.layout')
+
 @push('css')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('public/assets') }}/select2/css/select2.min.css">
@@ -7,19 +8,45 @@
     <link rel="stylesheet" href="{{ asset('public/assets') }}/summernote/summernote-bs4.min.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-header {
+            display: flex; /* Use Flexbox */
+            justify-content: space-between; /* Space out elements */
+            align-items: center; /* Vertically align elements */
+        }
+
+        .selected-count-container {
+            flex-grow: 1; /* Allow the center container to take available space */
+            text-align: center; /* Center text in the container */
+        }
+
+        .float-right {
+            margin-left: auto; /* Push the "Back" button to the right */
+        }
+
+        .btn-primary.uppercase.text-bold {
+            margin: 0; /* Remove default margins */
+        }
+    </style>
+
+
 @endpush
 @section('content')
     <section class="content">
         <div class="container-fluid">
             <!-- /.card -->
             <div class="card card-primary card-outline">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">{{ $page_title }}</h3>
-                    <div class="pull-right box-tools">
-                        <div class="float-right mt-1">
-                            <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.assign.index') }}">
-                                Back</a>
-                        </div>
+                    <div class="selected-count-container text-center">
+                        <p class="btn btn-primary uppercase text-bold mb-0">
+                            Total Selected Question: <span id="selectedCount">0</span>
+                        </p>
+                    </div>
+                    <div class="float-right">
+                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.assign.index') }}">
+                            Back
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -156,4 +183,22 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            // Function to update the count of selected checkboxes
+            function updateSelectedCount() {
+                let selectedCount = $('.question-checkbox:checked').length; // Count checked checkboxes
+                $('#selectedCount').text(selectedCount); // Update the count display
+            }
+
+            // Event listener for checkbox state change
+            $('.question-checkbox').on('change', function() {
+                updateSelectedCount();
+            });
+
+            // Initialize the count on page load
+            updateSelectedCount();
+        });
+    </script>
+
 @endpush

@@ -34,7 +34,7 @@ class AssignExamController extends Controller
         $data['page_title'] = "Assign Exam List";
         $data['AssignExam'] = AssignExam::all();
 
-        return view('admin.Exam.index', $data);
+        return view('admin.AssignExam.index', $data);
     }
 
     public function create(Request $request)
