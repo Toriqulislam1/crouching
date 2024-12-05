@@ -18,7 +18,7 @@ class McqService
     {
         // Save the MCQ
         $mcq = Mcq::create([
-            'module_id' => $request->module_id,
+            'module_id' => 0,
             'question' => $request->question,
         ]);
 

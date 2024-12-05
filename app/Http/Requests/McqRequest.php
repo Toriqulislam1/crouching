@@ -25,7 +25,7 @@ class McqRequest extends FormRequest
     {
         return [
 
-            'module_id'         => 'required',
+            'question'         => 'required',
         ];
     }
 }

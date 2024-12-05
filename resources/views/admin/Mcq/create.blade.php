@@ -24,19 +24,9 @@
                 <form id="subjectForm">
                     @csrf
                     <div class="form-group">
-                        <div class="form-group">
-                            <label>Module Select</label>
-                                <select id="module-select" name="module_id" class="custom-select" required>
-                                <option value="">Select module</option>
-                                @foreach ($module as $module)
-                                <option value="{{ $module->id }}">{{ $module->moduleName }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="form-group">
-                        <label for="question">Question</label>
+                        <label for="question">Question Name</label>
                         <input type="text" name="question" id="question" class="form-control" required>
                     </div>
 
@@ -117,56 +107,8 @@
 
 <!-- Summernote -->
 <script src="{{asset('public/assets')}}/summernote/summernote-bs4.min.js"></script>
-{{-- <script>
-    $(function() {
-        // Summernote
-        $('#summernote').summernote()
 
-        // CodeMirror
-        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-            mode: "htmlmixed"
-            , theme: "monokai"
-        });
-    })
-
-</script> --}}
-
-
-{{-- <script>
-    $(document).ready(function() {
-        // Handle the click event for toggling between + and -
-        $('#schedule-container').on('click', '.toggle-row', function() {
-            let button = $(this);
-            let currentRow = button.closest('.schedule-row');
-
-            if (button.text() === '+') {
-                // Change + to - for the current row
-                button.removeClass('btn-success').addClass('btn-danger').text('-');
-
-                // Clone the current row, reset inputs, and append to the container
-                let newRow = currentRow.clone();
-                newRow.find('input').val(''); // Clear input fields
-                newRow.find('select').val(''); // Reset dropdown
-
-                // Reset button in the cloned row to + (add new)
-                newRow.find('.toggle-row').removeClass('btn-danger').addClass('btn-success').text('+');
-
-                $('#schedule-container').append(newRow);
-            } else if (button.text() === '-') {
-                // Remove the row if it's a - button
-                if ($('.schedule-row').length > 1) {
-                    currentRow.remove();
-                } else {
-                    alert('At least one row is required.');
-                }
-            }
-        });
-    });
-
-</script> --}}
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-
 
 <script>
     $(document).ready(function() {
@@ -174,8 +116,6 @@
 
             e.preventDefault(); // Prevent the default form submission
 
-
-            let module_id =$('#module-select').val();
             let question =$('#question').val();
             let options = $('#options').val().split(','); // Split options by comma
             let correct_answer = $('#correct_answer').val();
@@ -183,7 +123,6 @@
                 url: "{{ route('admin.mcq.store') }}", // The route for storing the subject
                 type: "POST"
                 , data: {
-                    module_id: module_id,
                     question: question,
                     options:options,
                     correct_answer: correct_answer
