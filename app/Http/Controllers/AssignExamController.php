@@ -43,7 +43,7 @@ class AssignExamController extends Controller
         $data['Course'] = $this->AssignExamService->GetAllCourse();
         $data['Subject'] = $this->AssignExamService->GetAllSubjet();
         $data['Batch'] = $this->AssignExamService->GetAllBatch();
-        $data['Mcq'] = Mcq::with('options')->paginate(4);
+        $data['Mcq'] = Mcq::with('options')->paginate(50);
 
         return view('admin.AssignExam.create', $data);
     }

@@ -219,8 +219,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     //manage Exam
     Route::prefix('admin')->name('admin.')->group(function () {
-        //Exam assign
-        Route::prefix('exam')->name('assign.')->group(function () {
+        //Exam
+        Route::prefix('exam')->name('exam.')->group(function () {
             Route::get('/index', [AssignExamController::class, 'Index'])->name('index');
             Route::get('/create', [AssignExamController::class, 'create'])->name('create');
             Route::post('/store', [AssignExamController::class, 'store'])->name('store');
