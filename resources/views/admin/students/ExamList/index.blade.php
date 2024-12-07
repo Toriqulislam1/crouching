@@ -42,7 +42,7 @@
                                             <td>{{ $ExamList->package->course->Course_name  }}</td>
                                             <td>
                                                 @if($ExamList->id !== 1)
-                                                 <a class="btn btn-sm btn-primary" href="{{ route('student.exam.create',$ExamList->id) }}" title="Exam now"><i class="fa fa-school"></i> Start Now</a>
+                                                 <a class="btn btn-sm btn-primary" href="{{ route('student.exam.create',$ExamList->package_id ) }}" title="Exam now"><i class="fa fa-school"></i> Start Now</a>
                                                 @endif
                                             </td>
                                         </tr>
