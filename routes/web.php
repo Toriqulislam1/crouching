@@ -48,10 +48,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
 
 //manage Exam
 Route::prefix('student')->name('student.')->group(function () {
-    //Exam assign
+    //Exam for student
     Route::prefix('Exam')->name('exam.')->group(function () {
         Route::get('/index', [ExamController::class, 'index'])->name('index');
-        Route::get('/create', [ExamController::class, 'create'])->name('create');
+        Route::get('/create/{id}', [ExamController::class, 'create'])->name('create');
         Route::post('/store', [ExamController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
         Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
@@ -219,7 +219,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //manage Exam
     Route::prefix('admin')->name('admin.')->group(function () {
-        //Exam 
+        //Exam
         Route::prefix('exam')->name('assign.')->group(function () {
             Route::get('/index', [AssignExamController::class, 'Index'])->name('index');
             Route::get('/create', [AssignExamController::class, 'create'])->name('create');

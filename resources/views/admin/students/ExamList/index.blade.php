@@ -30,10 +30,8 @@
                                     <tr>
                                         <th class="text-bold text-uppercase">#SL</th>
                                         <th class="text-bold text-uppercase">Course name </th>
-                                        <th class="text-bold text-uppercase">Subjet name </th>
-                                        <th class="text-bold text-uppercase">Batch name </th>
                                         <th class="text-bold text-uppercase">Exam name </th>
-                                        <th class="text-bold text-uppercase">Action</th>
+                                        <th class="text-bold text-uppercase">Start</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -41,18 +39,10 @@
                                         <tr>
                                             <td>{{ ++$key }}</td>
                                             <td>{{ $ExamList->package->course->Course_name  }}</td>
-                                            <td>{{ $ExamList->package->course->subject_id  }}</td>
-                                            <td>{{ $ExamList->package->course->batch_id  }}</td>
                                             <td>{{ $ExamList->package->course->Course_name  }}</td>
-                                            <td>{{ $ExamList->package->course->Course_name  }}</td>
-                                            <td>{{ $ExamList->package->course->Course_name  }}</td>
-
                                             <td>
                                                 @if($ExamList->id !== 1)
-                                                 <a class="btn btn-sm btn-primary fa fa-edit" href="{{ route('admin.course.edit',$ExamList->id) }}" title="Edit"></a>
-                                                   @can('delete')
-                                                       {!! Form::button('<i class="fa fa-trash"></i> ', ['title' => 'Delete', 'class' => 'btn btn-sm btn-danger bold uppercase delete_button','data-toggle'=>"modal",'data-target'=>"#DelModal",'data-id'=>$ExamList->id]) !!}
-                                                   @endcan
+                                                 <a class="btn btn-sm btn-primary" href="{{ route('student.exam.create',$ExamList->id) }}" title="Exam now"><i class="fa fa-school"></i> Start Now</a>
                                                 @endif
                                             </td>
                                         </tr>

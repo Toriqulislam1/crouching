@@ -30,18 +30,19 @@ class ExamController extends Controller
     }
     public function Index()
     {
-        $data['page_title'] = "Assign Exam List";
+        $data['page_title'] = "Exam List";
         $user_id = auth::user()->id;
         $data['ExamList'] = $this->orderService->getUserOrders($user_id);
-        
+
 
         return view('admin.students.ExamList.index', $data);
     }
 
 
-    public function create(Request $request){
-        $data['page_title'] = "Exam Create";
-        return view('admin.exam.create', $data);
+    public function create(Request $request,$id){
+        
+        $data['page_title'] = "Exam for student";
+        return view('admin.students.ExamList.create', $data);
     }
 
     public function store(Request $request){
