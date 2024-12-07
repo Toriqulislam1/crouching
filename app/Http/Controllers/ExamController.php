@@ -11,6 +11,7 @@ use App\Models\AssignExam;
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Http\Requests\SubjectRequest;
+use App\Models\Mcq;
 use App\Models\Package;
 use Illuminate\Support\Facades\Auth;
 use App\Services\OrderService;
@@ -43,18 +44,22 @@ class ExamController extends Controller
     public function create(Request $request,$packageId){
 
         $Package = Package::find($packageId);
-        
+
         $subject_id = json_decode($Package->subject_id);
         $batch_id = json_decode($Package->batch_id);
         $exam = AssignExam::where('SubjectId', $subject_id)
                         ->where('BatchId', $batch_id)
                         ->get();
 
-// Debugging output
-dd($exam);
+        // Decode the question field into an array
+        // $questionIds = json_decode($exam->question);
+        // dd($questionIds);
+
+
+
 
         $data['page_title'] = "Exam for student";
-        return view('admin.students.ExamList.index', $data);
+        return view('admin.students.ExamList.create', $data);
     }
 
     public function store(Request $request){

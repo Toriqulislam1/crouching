@@ -1,103 +1,181 @@
 @extends('admin.layout.layout')
+
 @push('css')
-<!-- Select2 -->
-<link rel="stylesheet" href="{{asset('public/assets')}}/select2/css/select2.min.css">
-<link rel="stylesheet" href="{{asset('public/assets')}}/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="{{asset('public/assets')}}/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{asset('public/assets')}}/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="{{asset('public/assets')}}/datatables-buttons/css/buttons.bootstrap4.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    .question-container {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .options {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .option {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .option label {
+        font-size: 16px;
+        color: #555;
+    }
+
+</style>
+
 @endpush
 @section('content')
-<section class="content">
-    <div class="container-fluid">
-        <div class="card card-primary card-outline">
-            <div class="card-header">
-                <h3 class="card-title">{{ $page_title }}</h3>
-                <div class="pull-right box-tools">
-                    <div class="float-right mt-1">
-                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.index') }}"> Back</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <form id="subjectForm">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="subject_name">Course Name <code>*</code></label>
-                                <input type="text" class="form-control" value="{{ $Course->Course_name }}" id="Course_name" required placeholder="Course name">
-                                <input type="hidden" class="form-control" name="" value="{{ $Course->id }}" id="id" required placeholder="batch name">
 
-                                <span class="text-danger" id="subject_name_error"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+{{-- <div class="container mt-5">
+    <h3 class="mb-4">Questionnaire</h3>
+    <form action="/submit" method="POST">
+        <!-- Question 1 -->
+        <div class="question-container">
+            <div class="question-title">What is your favorite color?</div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="question_1[]" value="red" id="red">
+                <label class="form-check-label" for="red">Red</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="question_1[]" value="blue" id="blue">
+                <label class="form-check-label" for="blue">Blue</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="question_1[]" value="green" id="green">
+                <label class="form-check-label" for="green">Green</label>
             </div>
         </div>
+        <!-- Question 2 -->
+        <div class="question-container">
+            <div class="question-title">What is your favorite animal?</div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="question_2[]" value="dog" id="dog">
+                <label class="form-check-label" for="dog">Dog</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="question_2[]" value="cat" id="cat">
+                <label class="form-check-label" for="cat">Cat</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="question_2[]" value="rabbit" id="rabbit">
+                <label class="form-check-label" for="rabbit">Rabbit</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div> --}}
+
+<div class="question-container">
+    <div class="question">What is your favorite color?</div>
+    <div class="options">
+        <div class="option">
+            <input type="radio" name="question1" id="option1" value="Red">
+            <label for="option1">Red</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option2" value="Blue">
+            <label for="option2">Blue</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option3" value="Green">
+            <label for="option3">Green</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option4" value="Yellow">
+            <label for="option4">Yellow</label>
+        </div>
     </div>
-</section>
+</div>
+<div class="question-container">
+    <div class="question">What is your favorite color?</div>
+    <div class="options">
+        <div class="option">
+            <input type="radio" name="question1" id="option1" value="Red">
+            <label for="option1">Red</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option2" value="Blue">
+            <label for="option2">Blue</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option3" value="Green">
+            <label for="option3">Green</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option4" value="Yellow">
+            <label for="option4">Yellow</label>
+        </div>
+    </div>
+</div>
+<div class="question-container">
+    <div class="question">What is your favorite color?</div>
+    <div class="options">
+        <div class="option">
+            <input type="radio" name="question1" id="option1" value="Red">
+            <label for="option1">Red</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option2" value="Blue">
+            <label for="option2">Blue</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option3" value="Green">
+            <label for="option3">Green</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option4" value="Yellow">
+            <label for="option4">Yellow</label>
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
 
 @push('js')
-<!-- Include Select2 JS -->
-<script src="{{asset('public/assets')}}/select2/js/select2.full.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{asset('public/assets')}}/datatables/jquery.dataTables.min.js"></script>
+<script src="{{asset('public/assets')}}/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{asset('public/assets')}}/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{asset('public/assets')}}/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="{{asset('public/assets')}}/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{asset('public/assets')}}/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="{{asset('public/assets')}}/jszip/jszip.min.js"></script>
+<script src="{{asset('public/assets')}}/pdfmake/pdfmake.min.js"></script>
+<script src="{{asset('public/assets')}}/pdfmake/vfs_fonts.js"></script>
+<script src="{{asset('public/assets')}}/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="{{asset('public/assets')}}/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
     $(function() {
-        // Initialize Select2
-        $('.select2bs4').select2({
-            theme: 'bootstrap4'
-        });
-
-        // Handle form submission
-        $('#subjectForm').on('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
-            // Clear previous errors
-            $('#Course_name').text('');
-            // Get form data
-            let Course_name = $('#Course_name').val();
-            let id = $('#id').val();
-            $.ajax({
-                url: "{{ route('admin.course.update') }}", // The route for updating the subject
-                type: "POST"
-                , data: {
-                    Course_name: Course_name,
-                    id: id
-                    , _token: "{{ csrf_token() }}"
-                }
-                , success: function(response) {
-
-                    // Show success toast
-                    Swal.fire({
-                        icon: 'success'
-                        , title: response.success
-                        , toast: true
-                        , position: 'top-end'
-                        , showConfirmButton: false
-                        , timer: 3000
-                    });
-
-                    setTimeout(() => {
-                    window.location.href = "{{ route('admin.course.index') }}";
-                    }, 3000); // Red
-
-                }
-                , error: function(xhr) {
-                    // Display validation errors
-                    let errors = xhr.responseJSON.errors;
-                    if (errors && errors.subject_name) {
-                        $('#subject_name_error').text(errors.Course_name[0]);
-
-                    } else {
-                        Swal.fire({
-                            icon: 'error'
-                            , title: 'Oops...'
-                            , text: 'Something went wrong. Please try again.'
-                        , });
-                    }
-                }
-            });
-        });
+        $("#example1").DataTable({
+            "responsive": true
+            , "lengthChange": false
+            , "autoWidth": false
+            , "buttons": ["excel", "pdf", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 
 </script>

@@ -37,7 +37,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('student.exam.index')}}" class="nav-link {{Request::is('admin/order') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-paperclip"></i>
+                        <i class='fas fa-graduation-cap' style='font-size:24px'></i>
                         <p>Exam List</p>
                     </a>
                 </li>
