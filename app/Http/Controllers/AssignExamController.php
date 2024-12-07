@@ -50,11 +50,13 @@ class AssignExamController extends Controller
 
     public function store(AssignExamRequest $request)
     {
+
         $this->AssignExamService->AssignExamStore($request);
         return response()->json('AssignExam added successfull');
     }
     public function edit($id)
     {
+
         $data['page_title'] = "Exam Edit";
 
         $data['AssignExam'] = $this->AssignExamService->editAssignExam($id);
@@ -62,6 +64,7 @@ class AssignExamController extends Controller
         $data['Subject'] = $this->AssignExamService->GetAllSubjet();
         $data['Batch'] = $this->AssignExamService->GetAllBatch();
 
+        dd($data['AssignExam']);
         return view('admin.AssignExam.edit', $data);
     }
     public function Update(AssignExamRequest $request)

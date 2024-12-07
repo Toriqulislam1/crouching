@@ -64,6 +64,53 @@
                          </select>
                      </div>
                  </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ExamTime">Exam Time <code>*</code></label>
+                        <input type="" class="form-control" id="ExamTime" required name="examTime" placeholder="Enter time Minute">
+                        <span class="text-danger" id="ExamTimeError"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ExamDate">Exam Date <code>*</code></label>
+                        <input type="datetime-local" class="form-control" name="examDate" id="ExamDate" required placeholder="Select exam date">
+                        <span class="text-danger" id="ExamDateError"></span>
+                    </div>
+                </div>
+                </div>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="select-all" />
+                            </th>
+                            <th>Question</th>
+                            <th>
+                                <input type="checkbox" id="select-all-right" />
+                            </th>
+                            <th>Question</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($Mcq->chunk(2) as $chunk)
+                        <tr>
+                            @foreach ($chunk as $mcq)
+                            <td>
+                                <input type="checkbox" class="question-checkbox" data-question-name="{{ $mcq->question }}" value="{{ $mcq->id }}" name="question[]" />
+                            </td>
+                            <td>{{ $mcq->question }}</td>
+                            @endforeach
+                            @if ($chunk->count() < 2) <td>
+                                </td>
+                                <td></td>
+                                @endif
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <!-- Render pagination links -->
+                {{ $Mcq->links() }}
 
                     </div>
                     <div class="card-footer">
@@ -136,5 +183,36 @@
     });
 
 </script>
+  <script>
+      $(function() {
+          $('#example1').DataTable({
+              "paging": false, // Disable DataTable's pagination
+              "ordering": true
+              , "info": true
+              , "searching": true
+          , });
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          // Function to update the count of selected checkboxes
+          function updateSelectedCount() {
+              let selectedCount = $('.question-checkbox:checked').length; // Count checked checkboxes
+              $('#selectedCount').text(selectedCount); // Update the count display
+          }
+
+          // Event listener for checkbox state change
+          $('.question-checkbox').on('change', function() {
+              updateSelectedCount();
+          });
+
+          // Initialize the count on page load
+          updateSelectedCount();
+      });
+
+  </script>
+
+
 @endpush
 

@@ -51,11 +51,12 @@
                 </div>
                 <div class="card-body">
                     <form id="subjectForm">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="Exam_name">Exam Name <code>*</code></label>
-                                    <input type="text" class="form-control" value="" id="ExamName" required
+                                    <input type="text" class="form-control" value="" name="ExamName" id="ExamName" required
                                         placeholder="Exam name">
                                     <span class="text-danger" id="Exam_name"></span>
                                 </div>
@@ -83,15 +84,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ExamTime">Exam Time <code>*</code></label>
-                                    <input type="text" class="form-control" id="ExamTime" required
-                                        placeholder="Select exam time">
+                                    <input type="" class="form-control" id="ExamTime" required name="examTime"
+                                        placeholder="Enter time Minute">
                                     <span class="text-danger" id="ExamTimeError"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ExamDate">Exam Date <code>*</code></label>
-                                    <input type="datetime-local" class="form-control" id="ExamDate" required
+                                    <input type="datetime-local" class="form-control" name="examDate" id="ExamDate" required
                                         placeholder="Select exam date">
                                     <span class="text-danger" id="ExamDateError"></span>
                                 </div>
@@ -117,7 +118,7 @@
                                             <td>
                                                 <input type="checkbox" class="question-checkbox"
                                                     data-question-name="{{ $mcq->question }}"
-                                                    value="{{ $mcq->id }}" />
+                                                    value="{{ $mcq->id }}" name="question[]" />
                                             </td>
                                             <td>{{ $mcq->question }}</td>
                                         @endforeach
@@ -159,8 +160,18 @@
                 method: 'POST',
                 data: formData,
                 success: function(response) {
-                    alert('Exam added successfully!');
-                    location.reload();
+                     // Show success toast
+                     Swal.fire({
+                     icon: 'success',
+                     title: response.success,
+                     toast: true,
+                     position: 'top-end',
+                     showConfirmButton: false,
+                     timer: 3000
+                     });
+
+                    $('#subjectForm')[0].reset();// location.reload();
+
                 },
                 error: function(xhr) {
                     let errors = xhr.responseJSON.errors;

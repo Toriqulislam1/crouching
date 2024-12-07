@@ -16,9 +16,11 @@ class CreateAssignExamsTable extends Migration
         Schema::create('assign_exams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('CourseId');
             $table->integer('SubjectId');
             $table->integer('BatchId');
+            $table->integer('ExamTime');
+            $table->integer('examDate');
+            $table->json('question');
             $table->timestamps();
         });
     }
