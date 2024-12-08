@@ -13,6 +13,7 @@ use App\Models\Order;
 use App\Http\Requests\SubjectRequest;
 use App\Models\Mcq;
 use App\Models\Package;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Services\OrderService;
 class ExamController extends Controller
@@ -52,13 +53,27 @@ class ExamController extends Controller
                         ->get();
 
         // Decode the question field into an array
-        // $questionIds = json_decode($exam->question);
+        // $questionIds = json_decode($exam);
         // dd($questionIds);
 
 
+        $data = $exam[0]; // Assuming $exam contains the provided data
+
+        // Decode the JSON `question` field into an array
+        $questionIds = json_decode($data->question, true);
+
+        // Query the `mcqs` table for the corresponding questions
+        $data['questions'] = DB::table('mcqs')->whereIn('id', $questionIds)->get();
+
+        // Query the `mcq_options` table for the options
+        $options = DB::table('mcq_options')->whereIn('mcq_id', $questionIds)->get();
+
+        // Group options by their `mcq_id`
+        $data['groupedOptions'] = $options->groupBy('mcq_id');
 
 
         $data['page_title'] = "Exam for student";
+
         return view('admin.students.ExamList.create', $data);
     }
 

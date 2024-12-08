@@ -50,7 +50,7 @@
 
 {{-- <div class="container mt-5">
     <h3 class="mb-4">Questionnaire</h3>
-    <form action="/submit" method="POST">
+
         <!-- Question 1 -->
         <div class="question-container">
             <div class="question-title">What is your favorite color?</div>
@@ -86,70 +86,59 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div> --}}
+{{-- <form action="/submit" method="POST">
+@foreach ($exam as $exam)
+<div class="question-container">
+    <div class="question">What is your favorite color?</div>
+    <div class="options">
+        <div class="option">
+            <input type="radio" name="question1" id="option1" value="Red">
+            <label for="option1">Red</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option2" value="Blue">
+            <label for="option2">Blue</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option3" value="Green">
+            <label for="option3">Green</label>
+        </div>
+        <div class="option">
+            <input type="radio" name="question1" id="option4" value="Yellow">
+            <label for="option4">Yellow</label>
+        </div>
+    </div>
+</div>
+@endforeach
 
-<div class="question-container">
-    <div class="question">What is your favorite color?</div>
-    <div class="options">
-        <div class="option">
-            <input type="radio" name="question1" id="option1" value="Red">
-            <label for="option1">Red</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option2" value="Blue">
-            <label for="option2">Blue</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option3" value="Green">
-            <label for="option3">Green</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option4" value="Yellow">
-            <label for="option4">Yellow</label>
-        </div>
-    </div>
-</div>
-<div class="question-container">
-    <div class="question">What is your favorite color?</div>
-    <div class="options">
-        <div class="option">
-            <input type="radio" name="question1" id="option1" value="Red">
-            <label for="option1">Red</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option2" value="Blue">
-            <label for="option2">Blue</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option3" value="Green">
-            <label for="option3">Green</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option4" value="Yellow">
-            <label for="option4">Yellow</label>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form> --}}
+
+<form action="/submit" method="POST">
+    @csrf
+    @foreach ($questions as $question)
+    <div class="question-container">
+        <!-- Display the question -->
+        <div class="question">{{ $question->question }}</div>
+
+        <div class="options">
+            @if (isset($groupedOptions[$question->id]))
+            @foreach ($groupedOptions[$question->id] as $option)
+            <div class="option">
+                <input type="radio" name="question_{{ $question->id }}" id="option_{{ $option->id }}" value="{{ $option->id }}">
+                <label for="option_{{ $option->id }}">{{ $option->option_text }}</label>
+            </div>
+            @endforeach
+            @else
+            <div class="no-options">No options available for this question.</div>
+            @endif
         </div>
     </div>
-</div>
-<div class="question-container">
-    <div class="question">What is your favorite color?</div>
-    <div class="options">
-        <div class="option">
-            <input type="radio" name="question1" id="option1" value="Red">
-            <label for="option1">Red</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option2" value="Blue">
-            <label for="option2">Blue</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option3" value="Green">
-            <label for="option3">Green</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option4" value="Yellow">
-            <label for="option4">Yellow</label>
-        </div>
-    </div>
-</div>
+    @endforeach
+   <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
 
 
 
