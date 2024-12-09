@@ -48,72 +48,16 @@
 @endpush
 @section('content')
 
-{{-- <div class="container mt-5">
-    <h3 class="mb-4">Questionnaire</h3>
 
-        <!-- Question 1 -->
-        <div class="question-container">
-            <div class="question-title">What is your favorite color?</div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="question_1[]" value="red" id="red">
-                <label class="form-check-label" for="red">Red</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="question_1[]" value="blue" id="blue">
-                <label class="form-check-label" for="blue">Blue</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="question_1[]" value="green" id="green">
-                <label class="form-check-label" for="green">Green</label>
-            </div>
-        </div>
-        <!-- Question 2 -->
-        <div class="question-container">
-            <div class="question-title">What is your favorite animal?</div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="question_2[]" value="dog" id="dog">
-                <label class="form-check-label" for="dog">Dog</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="question_2[]" value="cat" id="cat">
-                <label class="form-check-label" for="cat">Cat</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="question_2[]" value="rabbit" id="rabbit">
-                <label class="form-check-label" for="rabbit">Rabbit</label>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div> --}}
-{{-- <form action="/submit" method="POST">
-@foreach ($exam as $exam)
-<div class="question-container">
-    <div class="question">What is your favorite color?</div>
-    <div class="options">
-        <div class="option">
-            <input type="radio" name="question1" id="option1" value="Red">
-            <label for="option1">Red</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option2" value="Blue">
-            <label for="option2">Blue</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option3" value="Green">
-            <label for="option3">Green</label>
-        </div>
-        <div class="option">
-            <input type="radio" name="question1" id="option4" value="Yellow">
-            <label for="option4">Yellow</label>
-        </div>
-    </div>
-</div>
-@endforeach
+<h4 id="countdown">
+    Time remaining: <span id="timer">{{$exam->ExamTime}}:00</span>
+</h4>
 
 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> --}}
+
+
+
+
 
 <form action="/submit" method="POST">
     @csrf
@@ -168,5 +112,51 @@
     });
 
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the timer element
+        const timerElement = document.getElementById("timer");
+
+        // Initialize time remaining in minutes (provided from Laravel)
+        let timeRemaining = parseInt("{{$exam->ExamTime}}");
+
+        // Function to disable all radio buttons
+        function disableAllOptions() {
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach((radio) => {
+                radio.disabled = true;
+            });
+        }
+
+        // Countdown function to update every minute
+        function updateTimer() {
+            if (timeRemaining <= 0) {
+                timerElement.textContent = "0:00"; // Display 0:00 when time is up
+                clearInterval(interval); // Stop the timer
+                alert("Time is up!"); // Notify the user
+                disableAllOptions(); // Disable all radio buttons
+                return;
+            }
+
+            timeRemaining--; // Decrease the remaining time by 1 minute
+            timerElement.textContent = `${timeRemaining}:00`; // Update the UI
+        }
+
+        // Run the countdown every 60 seconds (1 minute)
+        const interval = setInterval(updateTimer, 60000);
+
+        // Display initial countdown and start immediately
+        updateTimer();
+    });
+
+</script>
+
+
+
+
+
+
+
+
 @endpush
 

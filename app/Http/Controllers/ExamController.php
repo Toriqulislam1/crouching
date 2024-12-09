@@ -51,17 +51,11 @@ class ExamController extends Controller
         $exam = AssignExam::where('SubjectId', $subject_id)
                         ->where('BatchId', $batch_id)
                         ->get();
-
-        // Decode the question field into an array
-        // $questionIds = json_decode($exam);
-        // dd($questionIds);
-
-
         $data = $exam[0]; // Assuming $exam contains the provided data
 
         // Decode the JSON `question` field into an array
         $questionIds = json_decode($data->question, true);
-
+        $data['exam'] = $exam[0];
         // Query the `mcqs` table for the corresponding questions
         $data['questions'] = DB::table('mcqs')->whereIn('id', $questionIds)->get();
 
@@ -70,7 +64,6 @@ class ExamController extends Controller
 
         // Group options by their `mcq_id`
         $data['groupedOptions'] = $options->groupBy('mcq_id');
-
 
         $data['page_title'] = "Exam for student";
 
