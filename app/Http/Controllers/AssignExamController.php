@@ -66,7 +66,7 @@ class AssignExamController extends Controller
 
         // Query the `mcqs` table for the corresponding questions
         $data['questions'] = DB::table('mcqs')->whereIn('id', $questionIds)->get();
-        // Query the `mcq_options` table for the options
+        
 
 
         $data['page_title'] = "Exam UPdate";
