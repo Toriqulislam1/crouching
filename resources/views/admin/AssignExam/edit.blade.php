@@ -12,7 +12,7 @@
                 <h3 class="card-title">{{ $page_title }}</h3>
                 <div class="pull-right box-tools">
                     <div class="float-right mt-1">
-                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.course.index') }}"> Back</a>
+                        <a class="btn btn-primary uppercase text-bold" href="{{ route('admin.assign.index') }}"> Back</a>
                     </div>
                 </div>
             </div>
@@ -26,16 +26,6 @@
                                 <input type="hidden" class="form-control" value="{{ $AssignExam->id }}" id="Id" required placeholder="Exam name">
 
                                 <span class="text-danger" id="Exam_name"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="Course">Course Name</label>
-                                <select name="Course_id" id="CourseId" class="form-control">
-                                    @foreach ($Course as $course)
-                                        <option value="{{ $course->id }}" {{ $AssignExam->CourseId == $course->id ? 'selected' : '' }}>{{ $course->Course_name }}</option>
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                  <div class="col-md-6">
@@ -67,14 +57,16 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="ExamTime">Exam Time <code>*</code></label>
-                        <input type="" class="form-control" id="ExamTime" required name="examTime" placeholder="Enter time Minute">
+                        <input type="" class="form-control" id="ExamTime" required name="examTime" value="{{ $AssignExam->ExamTime }}" placeholder="Enter time Minute">
                         <span class="text-danger" id="ExamTimeError"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="ExamDate">Exam Date <code>*</code></label>
-                        <input type="datetime-local" class="form-control" name="examDate" id="ExamDate" required placeholder="Select exam date">
+                        <input type="datetime-local" class="form-control" name="examDate" id="ExamDate" required value="{{ $AssignExam->examDate  }}" placeholder="Select exam date">
+
+
                         <span class="text-danger" id="ExamDateError"></span>
                     </div>
                 </div>

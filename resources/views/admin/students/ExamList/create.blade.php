@@ -59,7 +59,7 @@
 
 
 
-<form action="/submit" method="POST">
+<form action="{{ route('student.exam.store') }}" method="POST">
     @csrf
     @foreach ($questions as $question)
     <div class="question-container">
@@ -151,6 +151,34 @@
 
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#questionForm').on('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Serialize the form data
+            let formData = $(this).serialize();
+
+            // Send the AJAX request
+            $.ajax({
+                url: $(this).attr('action'), // Use the form's action attribute
+                method: 'POST'
+                , data: formData
+                , success: function(response) {
+                    // Handle the successful response
+                    alert('Form submitted successfully!');
+                    console.log(response);
+                }
+                , error: function(xhr) {
+                    // Handle errors
+                    alert('An error occurred while submitting the form.');
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+
+</script>
 
 
 

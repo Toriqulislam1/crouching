@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Services\BatchService;
 use App\Services\AssignExamService;
 use App\Services\SubjectService;
@@ -54,17 +56,31 @@ class AssignExamController extends Controller
         $this->AssignExamService->AssignExamStore($request);
         return response()->json('AssignExam added successfull');
     }
-    public function edit($id)
+    public function edit($AssignExamId)
     {
 
-        $data['page_title'] = "Exam Edit";
+        $assignDetails =  AssignExam::findOrFail($AssignExamId);
 
-        $data['AssignExam'] = $this->AssignExamService->editAssignExam($id);
+
+        $questionIds = json_decode($assignDetails->question, true);
+
+        // Query the `mcqs` table for the corresponding questions
+        $data['questions'] = DB::table('mcqs')->whereIn('id', $questionIds)->get();
+        // Query the `mcq_options` table for the options
+
+
+        $data['page_title'] = "Exam UPdate";
         $data['Course'] = $this->AssignExamService->GetAllCourse();
         $data['Subject'] = $this->AssignExamService->GetAllSubjet();
         $data['Batch'] = $this->AssignExamService->GetAllBatch();
+        $data['Mcq'] = Mcq::with('options')->paginate(50);
+        $data['page_title'] = "Exam Edit";
+        $data['AssignExam'] = $this->AssignExamService->editAssignExam($AssignExamId);
+        // $data['Course'] = $this->AssignExamService->GetAllCourse();
+        // $data['Subject'] = $this->AssignExamService->GetAllSubjet();
+        // $data['Batch'] = $this->AssignExamService->GetAllBatch();
 
-        dd($data['AssignExam']);
+
         return view('admin.AssignExam.edit', $data);
     }
     public function Update(AssignExamRequest $request)

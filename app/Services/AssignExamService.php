@@ -29,7 +29,6 @@ class AssignExamService
 
     public function AssignExamStore($request)
     {
-
         // Save the subject
         $exam = new AssignExam();
         $exam->name = $request->ExamName;
@@ -38,7 +37,6 @@ class AssignExamService
         $exam->question = json_encode($request->question);
         $exam->examDate = $request->examDate;
         $exam->ExamTime = $request->examTime;
-
         $exam->save();
     }
 
@@ -46,8 +44,8 @@ class AssignExamService
 
     public function editAssignExam($AssignId)
     {
-       
-        return AssignExam::with(['course', 'subject', 'batch'])->findOrFail($AssignId);
+
+         return AssignExam::with(['course', 'subject', 'batch'])->findOrFail($AssignId);
     }
     public function updateAssignExam($AssignId, $request)
     {

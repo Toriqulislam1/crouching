@@ -72,14 +72,16 @@ class ExamController extends Controller
 
     public function store(Request $request){
 
-        $request->validate([
-            'subject_name' => 'required|string|max:255',
-        ]);
+        dd($request->all());
 
-        // Save the subject
-        Exam::create([
-            'subject_name' => $request->subject_name,
-        ]);
+        // $request->validate([
+        //     'subject_name' => 'required|string|max:255',
+        // ]);
+
+        // // Save the subject
+        // Exam::create([
+        //     'subject_name' => $request->subject_name,
+        // ]);
 
      return response()->json('Exam added successfull');
     }
