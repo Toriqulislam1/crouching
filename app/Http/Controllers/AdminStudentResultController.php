@@ -16,7 +16,7 @@ use App\Http\Requests\SubjectRequest;
 use App\Http\Requests\BatchRequest;
 
 
-class AssignExamController extends Controller
+class AdminStudentResultController extends Controller
 {
     protected $AssignExamService;
     protected $orderService;
@@ -29,14 +29,12 @@ class AssignExamController extends Controller
         $this->BatchService = $BatchService;
     }
 
-
-
     public function Index()
     {
         $data['page_title'] = "Assign Exam List";
         $data['AssignExam'] = AssignExam::all();
 
-        return view('admin.AssignExam.index', $data);
+        return view('admin.result.admin.index', $data);
     }
 
     public function create(Request $request)

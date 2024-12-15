@@ -14,6 +14,7 @@ use App\Http\Controllers\AssignExamController;
 use App\Http\Controllers\MCQExamController;
 use App\Http\Controllers\moduleMcqController;
 use App\Http\Controllers\moduleAssignController;
+use App\Http\Controllers\AdminStudentResultController;
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:clear');
@@ -39,7 +40,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('order', ['as' => 'order', 'uses' => 'HomeController@orderList']);
     Route::post('submit-order', ['as' => 'submit-order', 'uses' => 'HomeController@orderSubmit']);
 });
-
 
 //manage Exam
 Route::prefix('student')->name('student.')->group(function () {
@@ -208,8 +208,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/destroy/{id}', [CourseController::class, 'destroy'])->name('destroy');
             Route::post('/update', [CourseController::class, 'update'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
         });
-
-
     });
 
     //manage Exam
@@ -254,8 +252,17 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/update', [moduleAssignController::class, 'destroy'])->name('update');
             Route::delete('/update', [moduleAssignController::class, 'destroy'])->name('update');
         });
+
+        Route::prefix('student')->name('student.')->group(function () {
+            Route::prefix('result')->name('result.')->group(function () {
+                Route::get('/index', [AdminStudentResultController::class, 'Index'])->name('index');
+                Route::get('/create', [AdminStudentResultController::class, 'create'])->name('create');
+                Route::post('/store', [AdminStudentResultController::class, 'store'])->name('store');
+                Route::get('/edit/{id}', [AdminStudentResultController::class, 'edit'])->name('edit');
+                Route::delete('/destroy/{id}', [AdminStudentResultController::class, 'destroy'])->name('destroy');
+                Route::post('/update', [AdminStudentResultController::class, 'SubjectUpdate'])->name('update');
+            });
+            
+        });
     });
-
-
-
 });

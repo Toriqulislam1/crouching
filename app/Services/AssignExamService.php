@@ -50,14 +50,16 @@ class AssignExamService
     public function updateAssignExam($AssignId, $request)
     {
 
-
         $Assign = $this->editAssignExam($AssignId);
+
         $Assign->update(
             [
                 'name' => $request->ExamName,
-                'CourseId' => $request->CourseId,
                 'SubjectId' => $request->SubjectId,
-                'BatchId' => $request->BatchId
+                'BatchId' => $request->BatchId,
+                'question' => json_encode($request->questions),
+                'examDate' => $request->exam_date,
+                'ExamTime' => $request->exam_time
             ]
         );
     }
