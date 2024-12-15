@@ -23,7 +23,7 @@ Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('view:clear');
     $exitCode = Artisan::call('route:clear');
     return "All Clear";
-});;
+});
 
 // frontend routes
 Route::get('/', ['as' => '/', 'uses' => 'FrontendController@home']);
@@ -262,7 +262,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::delete('/destroy/{id}', [AdminStudentResultController::class, 'destroy'])->name('destroy');
                 Route::post('/update', [AdminStudentResultController::class, 'SubjectUpdate'])->name('update');
             });
-            
+
         });
     });
 });
