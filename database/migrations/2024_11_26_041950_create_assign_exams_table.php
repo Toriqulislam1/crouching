@@ -19,7 +19,7 @@ class CreateAssignExamsTable extends Migration
             $table->integer('SubjectId');
             $table->integer('BatchId');
             $table->integer('ExamTime');
-            $table->integer('examDate');
+            $table->datetime('examDate');
             $table->json('question');
             $table->timestamps();
         });

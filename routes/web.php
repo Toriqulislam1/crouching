@@ -15,9 +15,6 @@ use App\Http\Controllers\MCQExamController;
 use App\Http\Controllers\moduleMcqController;
 use App\Http\Controllers\moduleAssignController;
 
-
-
-
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:clear');
     $exitCode = Artisan::call('cache:clear');
@@ -26,8 +23,6 @@ Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('route:clear');
     return "All Clear";
 });;
-
-
 
 // frontend routes
 Route::get('/', ['as' => '/', 'uses' => 'FrontendController@home']);

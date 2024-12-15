@@ -64,9 +64,11 @@ class AssignExamController extends Controller
 
         $questionIds = json_decode($assignDetails->question, true);
 
+        $data['IdsForAfterSelected'] = json_decode($assignDetails->question, true);
+
         // Query the `mcqs` table for the corresponding questions
         $data['questions'] = DB::table('mcqs')->whereIn('id', $questionIds)->get();
-    
+
 
         $data['page_title'] = "Exam UPdate";
         $data['Course'] = $this->AssignExamService->GetAllCourse();
@@ -75,10 +77,6 @@ class AssignExamController extends Controller
         $data['Mcq'] = Mcq::with('options')->paginate(50);
         $data['page_title'] = "Exam Edit";
         $data['AssignExam'] = $this->AssignExamService->editAssignExam($AssignExamId);
-        // $data['Course'] = $this->AssignExamService->GetAllCourse();
-        // $data['Subject'] = $this->AssignExamService->GetAllSubjet();
-        // $data['Batch'] = $this->AssignExamService->GetAllBatch();
-
 
         return view('admin.AssignExam.edit', $data);
     }

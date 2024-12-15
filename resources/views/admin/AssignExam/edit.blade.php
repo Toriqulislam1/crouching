@@ -84,7 +84,7 @@
                             <th>Question</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {{-- <tbody>
                         @foreach ($Mcq->chunk(2) as $chunk)
                         <tr>
                             @foreach ($chunk as $mcq)
@@ -99,7 +99,31 @@
                                 @endif
                         </tr>
                         @endforeach
+                    </tbody> --}}
+                    
+                    <tbody>
+                        @foreach ($Mcq->chunk(2) as $chunk)
+                            <tr>
+                                @foreach ($chunk as $mcq)
+                                    <td>
+                                        <input type="checkbox"
+                                               class="question-checkbox"
+                                               data-question-name="{{ $mcq->question }}"
+                                               value="{{ $mcq->id }}"
+                                               name="question[]"
+                                               @if(in_array($mcq->id, $IdsForAfterSelected)) checked @endif />
+                                    </td>
+                                    <td>{{ $mcq->question }}</td>
+                                @endforeach
+
+                                @if ($chunk->count() < 2)
+                                    <td></td>
+                                    <td></td>
+                                @endif
+                            </tr>
+                        @endforeach
                     </tbody>
+
                 </table>
                 <!-- Render pagination links -->
                 {{ $Mcq->links() }}
