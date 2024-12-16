@@ -50,7 +50,7 @@ Route::prefix('student')->name('student.')->group(function () {
         Route::post('/store', [ExamController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
         Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
-        Route::post('/update', [ExamController::class, 'Update'])->name('update');
+        Route::get('/showIndex', [ExamController::class, 'showIndex'])->name('showIndex');
     });
     //moduleMcq
     Route::prefix('moduleMcq')->name('moduleMcq.')->group(function () {
@@ -262,7 +262,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::delete('/destroy/{id}', [AdminStudentResultController::class, 'destroy'])->name('destroy');
                 Route::post('/update', [AdminStudentResultController::class, 'SubjectUpdate'])->name('update');
             });
-            
+
         });
     });
 });

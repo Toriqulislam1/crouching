@@ -6,7 +6,7 @@ use App\Services\ExamService;
 use App\Services\PackageService;
 use App\Services\SubjectService;
 use Illuminate\Http\Request;
-use App\Models\transactions;
+use App\Models\StudentAnswer;
 use App\Models\AssignExam;
 use Carbon\Carbon;
 use App\Models\Order;
@@ -70,45 +70,75 @@ class ExamController extends Controller
         return view('admin.students.ExamList.create', $data);
     }
 
-    public function store(Request $request){
-
-        dd($request->all());
-
-        // $request->validate([
-        //     'subject_name' => 'required|string|max:255',
-        // ]);
-
-        // // Save the subject
-        // Exam::create([
-        //     'subject_name' => $request->subject_name,
-        // ]);
-
-     return response()->json('Exam added successfull');
-    }
-    public function edit($id)
+    public function store(Request $request)
     {
-        $data['page_title'] = "Subject Edit";
-        $data['subject'] = $this->ExamService->editExam($id);
-        return view('admin.subject.edit', $data);
-    }
-    public function update(SubjectRequest $request)
-    {
-        return response()->json('Exam added successfull');
-        $in = $request->all();
-        $this->SubjectService->updateExam($id, $in); // store this package using services
-        session()->flash('success', 'Successfully Created');
-        return response()->json('subject added successfull');
-    }
-    public function destroy($id)
-    {
-        $subject = Exam::find($id);
-        if ($subject) {
-            $subject->delete();
-            return redirect()->back()
-                ->with('success', 'Delete successfully');
-        } else {
-            return redirect()->back()->with('success', 'Some thing worng');
+        $studentId = auth()->id(); // Assuming logged-in user is the student
+        $examNameId = (int) $request->input('exam_name_id');
+
+        $alreadySubmitted = StudentAnswer::where('student_id', $studentId)
+        ->where('exam_name_id', $examNameId)
+        ->exists();
+
+        if ($alreadySubmitted) {
+            session()->flash('error', 'You have already submitted this exam.');
+            return redirect()->back(); // Redirect back with the session error
         }
+
+
+        // Filter out only question-related inputs
+        $answers = collect($request->except('_token', 'exam_name_id'));
+
+        foreach ($answers as $key => $optionId) {
+            // Ensure the key represents a question (e.g., "question_4")
+            if (str_starts_with($key, 'question_')) {
+                // Extract the actual question ID
+                $questionId = (int) str_replace('question_', '', $key);
+
+                // Save the answer
+                StudentAnswer::create([
+                    'student_id' => $studentId,
+                    'question_id' => $questionId,
+                    'option_id' => $optionId,
+                    'exam_name_id' => $examNameId,
+                ]);
+            }
+        }
+
+        session()->flash('success', 'Exam submitted successfully.');
+
+        return redirect()->back();
     }
+
+
+    public function showIndex(){
+        $data['page_title'] = "Exam List";
+        $user_id = auth::user()->id;
+        $answers = StudentAnswer::with('question', 'option')
+        ->where('student_id', $user_id)
+        ->get();
+
+        return view('admin.students.ExamList.ShowIndex', $data);
+    }
+
+    public function showResults($studentId) {
+
+
+
+        $data['page_title'] = "Exam List";
+         $answers = StudentAnswer::with('question', 'option')
+        ->where('student_id', $studentId)
+        ->get();
+
+    $correctAnswers = $answers->filter(function ($answer) {
+        return $answer->option->is_correct;
+    });
+
+    return view('results', [
+        'answers' => $answers,
+        'correctCount' => $correctAnswers->count(),
+        'totalCount' => $answers->count(),
+    ]);
+}
+
 
 }

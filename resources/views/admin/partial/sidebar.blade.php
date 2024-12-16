@@ -35,11 +35,27 @@
                         <p>Order</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('student.exam.index')}}" class="nav-link {{Request::is('admin/order') ? 'active' : ''}}">
-                        <i class='fas fa-graduation-cap' style='font-size:24px'></i>
-                        <p>Exam List</p>
+                <li class="nav-item {{Request::is('student/Exam/create') ? 'menu-open' : ''}}">
+
+                    <a href="#" class="nav-link {{Request::is('/student/Exam/create') ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-chalkboard"></i>
+                        <p>Exam Panel<i class="fas fa-angle-left right"></i></p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('student.exam.index')}}" class="nav-link {{Request::is('/student/Exam/create') ? 'active' : ''}}">
+
+                                <i class='fas fa-graduation-cap' style='font-size:24px'></i>
+                                <p>Exam List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('student.exam.showIndex')}}" class="nav-link {{Request::is('/student/Exam/showIndex') ? 'active' : ''}}">
+                               <i class="fas fa-poll-h" style='font-size:24px'></i>
+                                <p>Result List</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             @endif
