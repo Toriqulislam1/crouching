@@ -48,19 +48,25 @@
 @endpush
 @section('content')
 
-
 <h4 id="countdown">
     Time remaining: <span id="timer">{{$exam->ExamTime}}:00</span>
 </h4>
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
-
-
-
-
+@if (session('error'))
+<div class="alert alert-danger">
+    {{ session('error') }}
+</div>
+@endif
 
 
 <form action="{{ route('student.exam.store') }}" method="POST">
     @csrf
+    <input type="hidden" name="exam_name_id" value="{{$exam->id}}">
     @foreach ($questions as $question)
     <div class="question-container">
         <!-- Display the question -->
@@ -81,10 +87,7 @@
     </div>
     @endforeach
    <button type="submit" class="btn btn-primary">Submit</button>
-
 </form>
-
-
 
 @endsection
 
@@ -165,9 +168,7 @@
                 method: 'POST'
                 , data: formData
                 , success: function(response) {
-                    // Handle the successful response
-                    alert('Form submitted successfully!');
-                    console.log(response);
+
                 }
                 , error: function(xhr) {
                     // Handle errors
@@ -179,12 +180,6 @@
     });
 
 </script>
-
-
-
-
-
-
 
 @endpush
 

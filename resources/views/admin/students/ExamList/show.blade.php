@@ -17,32 +17,24 @@
                 </div>
                 <div class="card-body">
                     <!-- info row -->
-                    <div class="row invoice-info">
-                        <div class="col-sm-6 invoice-col">
-                            <address>
-                                <strong>course name : {{$package->course_name}}</strong><br>
-                                <strong>Course duration : {{$package->course_duration }}</strong><br>
-                                <strong>Short Title: {{$package->short_title}}</strong><br>
-                               <strong>Batch No:
-                                   @foreach (json_decode($package->batch) as $batch)
-                                   {{ $batch }}@if (!$loop->last), @endif
-                                   @endforeach
-                               </strong><br>
+                    <h2>Results</h2>
+                    <p>Correct Answers: {{ $correctCount }} / {{ $totalCount }}</p>
+
+                    <ul>
+                        @foreach ($answers as $answer)
+                        <li>
+                            Question: {{ $answer->question->question_text }} <br>
+                            Your Answer: {{ $answer->option->option_text }} <br>
+                            @if ($answer->option->is_correct)
+                            <span style="color: green;">Correct</span>
+                            @else
+                            <span style="color: red;">Wrong</span>
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
 
 
-
-                            </address>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6 invoice-col">
-                            <address>
-                                <strong>Price:    {{$package->price}}</strong><br>
-                                <strong>Discount: {{$package->discount_percent}}</strong><br>
-                                <strong>Final Price: {{$package->final_price}}</strong><br>
-                            </address>
-                        </div>
-
-                    </div>
                     <!-- /.row -->
                     <!-- Table row -->
                     <div class="row">
