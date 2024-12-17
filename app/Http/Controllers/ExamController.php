@@ -110,15 +110,36 @@ class ExamController extends Controller
     }
 
 
-    public function showIndex(){
+    public function showIndex()
+    {
         $data['page_title'] = "Exam List";
-        $user_id = auth::user()->id;
-        $answers = StudentAnswer::with('question', 'option')
-        ->where('student_id', $user_id)
-        ->get();
+        $user_id = auth()->user()->id;
+
+        // Fetch answers and group them by exam_name_id
+        $answers = StudentAnswer::with('question', 'examName', 'option')
+            ->where('student_id', $user_id)
+            ->get()
+            ->groupBy('exam_name_id');
+
+        $data['examResults'] = $answers->map(function ($examAnswers) {
+            $correctCount = $examAnswers->filter(function ($answer) {
+                return $answer->option && $answer->option->is_correct;
+            })->count();
+
+            // Access the first answer to fetch exam details
+            $firstAnswer = $examAnswers->first();
+          
+            return [
+                'exam_name' => $firstAnswer->examName->name ?? 'N/A',
+                'subject_name' => $firstAnswer->examName->subject->subject_name ?? 'N/A',
+                'total_marks' => $correctCount,
+            ];
+        });
 
         return view('admin.students.ExamList.ShowIndex', $data);
     }
+
+
 
     public function showResults($studentId) {
 
