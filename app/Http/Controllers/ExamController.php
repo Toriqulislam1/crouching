@@ -125,10 +125,8 @@ class ExamController extends Controller
             $correctCount = $examAnswers->filter(function ($answer) {
                 return $answer->option && $answer->option->is_correct;
             })->count();
-
             // Access the first answer to fetch exam details
             $firstAnswer = $examAnswers->first();
-          
             return [
                 'exam_name' => $firstAnswer->examName->name ?? 'N/A',
                 'subject_name' => $firstAnswer->examName->subject->subject_name ?? 'N/A',

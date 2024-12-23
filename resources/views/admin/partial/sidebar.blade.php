@@ -149,6 +149,21 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{Request::is('admin/exam/index') || Request::is('admin/mcq/index') || Request::is('admin/exam/create') || Request::is('admin/mcq/create')|| Request::is('admin/mcq/index') ? 'menu-open' : ''}}">
+
+                    <a href="#" class="nav-link {{Request::is('admin/get-basic') || Request::is('admin/get-about') || Request::is('admin/get-terms') || Request::is('admin/get-privacy') ? 'active' : ''}}">
+                        <i class="fa fa-user-graduate" style="font-size:24px"></i>
+                        <p>Assignment<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.assignment.index')}}" class="nav-link {{Request::is('/admin/student/result/list') ? 'active' : ''}}">
+                                <i class='fa fa-book-reader' style='font-size:24px'></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="{{route('admin-order-list')}}" class="nav-link {{Request::is('/admin/order/list') || Request::is('update-order-status') || Request::is('admin/package/*/show') ? 'active' : ''}}">
                         <i class="fas fa-tasks"></i>
@@ -158,7 +173,6 @@
                 <li class="nav-item">
                     <a href="{{route('admin-payment-order-list')}}" class="nav-link {{Request::is('/admin/payment/order/list') || Request::is('') || Request::is('') || Request::is('') ? 'active' : ''}}">
                         <i class="far fa-money-bill-alt"></i>
-
                         <p>Payment Manage Order</p>
                     </a>
                 </li>
