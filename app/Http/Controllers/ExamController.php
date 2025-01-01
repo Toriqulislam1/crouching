@@ -108,8 +108,6 @@ class ExamController extends Controller
 
         return redirect()->back();
     }
-
-
     public function showIndex(){
         $data['page_title'] = "Exam List";
         $user_id = auth::user()->id;

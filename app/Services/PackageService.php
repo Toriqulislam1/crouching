@@ -70,6 +70,12 @@ class PackageService
         $package = $this->getPackageById($packageId);
         $package->delete();
     }
+
+    //frontend package
+    public function PackageDetails($packageId)
+    {
+        return Package::findOrFail($packageId);
+    }
 }
 
 ?>

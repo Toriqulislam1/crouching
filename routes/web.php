@@ -26,6 +26,27 @@ Route::get('/clear-cache', function () {
 });;
 
 // frontend routes
+
+Route::prefix('frontend')->name('frontend.')->group(function () {
+    //Package
+    Route::prefix('package')->name('package.')->group(function () {
+        Route::get('/details/{id}', [HomeController::class, 'packageDetails'])->name('packagDetails');
+        Route::get('/create/{id}', [ExamController::class, 'create'])->name('create');
+        Route::post('/store', [ExamController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
+        Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
+        Route::get('/showIndex', [ExamController::class, 'showIndex'])->name('showIndex');
+    });
+
+});
+
+
+
+
+
+
+
+
 Route::get('/', ['as' => '/', 'uses' => 'FrontendController@home']);
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {

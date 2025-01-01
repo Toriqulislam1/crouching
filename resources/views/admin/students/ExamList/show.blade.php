@@ -19,7 +19,6 @@
                     <!-- info row -->
                     <h2>Results</h2>
                     <p>Correct Answers: {{ $correctCount }} / {{ $totalCount }}</p>
-
                     <ul>
                         @foreach ($answers as $answer)
                         <li>

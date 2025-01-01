@@ -2,6 +2,51 @@
 @push('css')
 @endpush
 @section('content')
+    <!--Start Hero-->
+    <section class="hero-section niwax-lp2" id="home">
+        <div class="niwax-lp-img nlp2 niwax" data-rellax-speed="-2"><img src="{{asset('public/frontend')}}/images/hero/niwax-lp-2b.svg" alt=""></div>
+        <div class="niwax-lp-img nlp1 niwax" data-rellax-speed="4"><img src="{{asset('public/frontend')}}/images/hero/niwax-lp-2a.svg" alt=""></div>
+        <div class="niwax-lp-img nlp4 niwax" data-rellax-speed="2"><img src="{{asset('public/frontend')}}/images/hero/niwax-lp-2d.svg" alt=""></div>
+        <div class="niwax-lp-img nlp3 niwax" data-rellax-speed="3"><img src="{{asset('public/frontend')}}/images/hero/niwax-lp-2c.svg" alt=""></div>
+        <div class="text-block">
+            <div class="container">
+                <div class="row v-center">
+                    <div class="col-lg-7">
+                        <div class="header-headings">
+                            <span class="text-effect-1">Solution-Oriented Services</span>
+                            <h1 class="wow fadeIn mt20 mb30" data-wow-delay=".4s">The most straightforward payment solution for your company's requirements</h1>
+
+                            <ul class="service-point-2 mt20 wow fadeIn" data-wow-delay=".8s">
+                                <li># 800+ Mobile Delivered</li>
+                                <li># 200+ Team Strength</li>
+                                <li># User-Friendly Interface</li>
+                                <li># 400 Happy Clients</li>
+                                <li># 95% Repeat business</li>
+                                <li># Quality Service UX</li>
+                            </ul>
+                            <!-- btn set -->
+                            <div class="niwaxbtnvideo mt40 wow fadeIn" data-wow-delay="1s">
+                                <a href="#" class="niwax-btn2">GET STARTED<i class="fas fa-chevron-right fa-icon"></i></a>
+                                <div class="video-btn  d-flex v-center gap10">
+                                    <div class="video-intro-ppx"><a class="video-link play-video" href="https://www.youtube.com/watch?v=SZEflIVnhH8?autoplay=1&rel=0"><span class="triangle-play"></span></a></div>
+                                    <div class="title-hero">
+                                        <p>Play Video</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-5 v-center">
+                        <div class="niwax-lpimg-2">
+                            <img src="{{asset('public/frontend')}}/images/hero/payment.svg" alt="img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Hero-->
     <!--Start Service-->
     <section class="dg-service2 pad-tb" id="services">
         <div class="container">
@@ -138,10 +183,6 @@
                             <img src="{{asset('public/frontend')}}/images/icons/groceries.svg" alt="img">
                             <h6>Grocery</h6>
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -454,12 +495,9 @@
                                 </ul>
                             </div>
                             <div class="priceodernow">
-                                <div class="priceoderbtn"><a href="{{route('checkout',$package->id)}}" class="niwax-btn3">Order Now</a></div>
+                                <div class="priceoderbtn"><a href="{{route('checkout',$package->id)}}" class="niwax-btn3">Enroll Now</a></div>
                                 <div class="priceaskwithus">
-                                    <a href="#" class="livechatbtn d-flex gap10 v-center">
-                                        <i class="fas fa-comment"></i>
-                                        <div><span>Click here to</span> Live Chat </div>
-                                    </a>
+                                    <a href="{{route('frontend.package.packagDetails',$package->id)}}" class="btn-main bg-btn2">Details<i class="fas fa-chevron-right fa-icon fa-ani"></i></a>
                                 </div>
                             </div>
                             <div class="pricingfooter mt30">

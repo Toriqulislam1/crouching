@@ -294,6 +294,15 @@ class HomeController extends Controller
             return response()->json(['error' => 'Order not found'], 404);
         }
     }
+    public function packageDetails($packageId, Request $request)
+    {
+        $data['page_title'] = "Course details";
+        $data['packageInfo'] = $this->packageService->PackageDetails($packageId);
+        return view('frontend.package.details',$data);
+
+    }
+
+
 
 
 }
