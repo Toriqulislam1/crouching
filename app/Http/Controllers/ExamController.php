@@ -16,6 +16,7 @@ use App\Models\Package;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Services\OrderService;
+
 class ExamController extends Controller
 {
     protected $packageService;
@@ -23,7 +24,7 @@ class ExamController extends Controller
     protected $SubjectService;
     protected $orderService;
 
-    public function __construct(PackageService $packageService, ExamService $ExamService,SubjectService $SubjectService, OrderService $orderService)
+    public function __construct(PackageService $packageService, ExamService $ExamService, SubjectService $SubjectService, OrderService $orderService)
     {
         $this->middleware(['auth', 'Setting']);
         $this->packageService = $packageService;
@@ -42,15 +43,16 @@ class ExamController extends Controller
     }
 
 
-    public function create(Request $request,$packageId){
+    public function create(Request $request, $packageId)
+    {
 
         $Package = Package::find($packageId);
 
         $subject_id = json_decode($Package->subject_id);
         $batch_id = json_decode($Package->batch_id);
         $exam = AssignExam::where('SubjectId', $subject_id)
-                        ->where('BatchId', $batch_id)
-                        ->get();
+            ->where('BatchId', $batch_id)
+            ->get();
         $data = $exam[0]; // Assuming $exam contains the provided data
 
         // Decode the JSON `question` field into an array
@@ -76,8 +78,8 @@ class ExamController extends Controller
         $examNameId = (int) $request->input('exam_name_id');
 
         $alreadySubmitted = StudentAnswer::where('student_id', $studentId)
-        ->where('exam_name_id', $examNameId)
-        ->exists();
+            ->where('exam_name_id', $examNameId)
+            ->exists();
 
         if ($alreadySubmitted) {
             session()->flash('error', 'You have already submitted this exam.');
@@ -108,35 +110,54 @@ class ExamController extends Controller
 
         return redirect()->back();
     }
-    public function showIndex(){
+
+    public function showIndex()
+    {
         $data['page_title'] = "Exam List";
-        $user_id = auth::user()->id;
-        $answers = StudentAnswer::with('question', 'option')
-        ->where('student_id', $user_id)
-        ->get();
+        $user_id = auth()->user()->id;
+
+        // Fetch answers and group them by exam_name_id
+        $answers = StudentAnswer::with('question', 'examName', 'option')
+            ->where('student_id', $user_id)
+            ->get()
+            ->groupBy('exam_name_id');
+
+        $data['examResults'] = $answers->map(function ($examAnswers) {
+            $correctCount = $examAnswers->filter(function ($answer) {
+                return $answer->option && $answer->option->is_correct;
+            })->count();
+            // Access the first answer to fetch exam details
+            $firstAnswer = $examAnswers->first();
+            return [
+                'exam_name' => $firstAnswer->examName->name ?? 'N/A',
+                'subject_name' => $firstAnswer->examName->subject->subject_name ?? 'N/A',
+                'total_marks' => $correctCount,
+            ];
+        });
 
         return view('admin.students.ExamList.ShowIndex', $data);
     }
 
-    public function showResults($studentId) {
+
+
+    public function showResults($studentId)
+    {
 
 
 
         $data['page_title'] = "Exam List";
-         $answers = StudentAnswer::with('question', 'option')
-        ->where('student_id', $studentId)
-        ->get();
+        $answers = StudentAnswer::with('question', 'option')
+            ->where('student_id', $studentId)
+            ->get();
 
-    $correctAnswers = $answers->filter(function ($answer) {
-        return $answer->option->is_correct;
-    });
+        $correctAnswers = $answers->filter(function ($answer) {
+            return $answer->option->is_correct;
+        });
 
-    return view('results', [
-        'answers' => $answers,
-        'correctCount' => $correctAnswers->count(),
-        'totalCount' => $answers->count(),
-    ]);
-}
-
-
+        return view('results', [
+            'answers' => $answers,
+            'correctCount' => $correctAnswers->count(),
+            'totalCount' => $answers->count(),
+        ]);
+    }
 }

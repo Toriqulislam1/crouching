@@ -29,27 +29,25 @@
                                 <thead>
                                     <tr>
                                         <th class="text-bold text-uppercase">#SL</th>
-                                        <th class="text-bold text-uppercase"> Exam name </th>
-                                        <th class="text-bold text-uppercase"> Result </th>
+                                        <th class="text-bold text-uppercase">Exam Name</th>
+                                        <th class="text-bold text-uppercase">Subject Name</th>
+                                        <th class="text-bold text-uppercase">Marks</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($ExamList as $key => $ExamList)
+                                    @foreach ($examResults as $key => $exam)
                                     <tr>
-                                        <td>{{ ++$key }}</td>
-                                        <td>{{ $ExamList->package->course->Course_name  }}</td>
-                                        <td>{{ $ExamList->package->course->Course_name  }}</td>
-                                        <td>
-                                            @if($ExamList->id !== 1)
-                                            <a class="btn btn-sm btn-primary" href="{{ route('student.exam.create',$ExamList->package_id ) }}" title="Exam now"><i class="fa fa-school"></i> Start Now</a>
-                                            @endif
-                                        </td>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $exam['exam_name'] }}</td>
+                                        <td>{{ $exam['subject_name'] }}</td>
+                                        <td>{{ $exam['total_marks'] }}</td>
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->

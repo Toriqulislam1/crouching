@@ -15,6 +15,9 @@ use App\Http\Controllers\MCQExamController;
 use App\Http\Controllers\moduleMcqController;
 use App\Http\Controllers\moduleAssignController;
 use App\Http\Controllers\AdminStudentResultController;
+use App\Http\Controllers\assignmentController;
+
+
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('config:clear');
@@ -23,7 +26,7 @@ Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('view:clear');
     $exitCode = Artisan::call('route:clear');
     return "All Clear";
-});;
+});
 
 // frontend routes
 
@@ -228,6 +231,16 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/edit/{id}', [CourseController::class, 'edit'])->name('edit');
             Route::delete('/destroy/{id}', [CourseController::class, 'destroy'])->name('destroy');
             Route::post('/update', [CourseController::class, 'update'])->name('update');     Route::delete('/update', [SubjectController::class, 'destroy'])->name('update');
+        });
+         //Assignment
+         Route::prefix('assignment')->name('assignment.')->group(function () {
+            Route::get('/index', [assignmentController::class, 'Index'])->name('index');
+            Route::get('/create', [assignmentController::class, 'create'])->name('create');
+            Route::post('/store', [assignmentController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [assignmentController::class, 'edit'])->name('edit');
+            Route::delete('/destroy/{id}', [assignmentController::class, 'destroy'])->name('destroy');
+            Route::post('/update', [assignmentController::class, 'update'])->name('update');
+            Route::delete('/update', [assignmentController::class, 'destroy'])->name('update');
         });
     });
 

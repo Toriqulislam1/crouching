@@ -16,8 +16,9 @@ class AssignExam extends Model
 
     public function subject()
     {
-        return $this->belongsTo(Subject::class, 'SubjectId');
+        return $this->belongsTo(Subject::class, 'SubjectId', 'id');
     }
+
 
     public function batch()
     {
