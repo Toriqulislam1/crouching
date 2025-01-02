@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="common-heading text-l">
-                                <h4 class="mt0 mb0"> payment name: {{ $bankData->payment_name  }} </h4>
+                                <h4 class="mt0 mb0"> Pay with: {{ $bankData->payment_name  }} </h4>
                                 <p class="mb50 mt10">nato: {{ $bankData->note   }} </p>
                             </div>
                         </div>

@@ -25,7 +25,7 @@ class HomeController extends Controller
     protected $orderService;
     public function __construct(PackageService $packageService, OrderService $orderService)
     {
-        $this->middleware(['auth','Setting']);
+        $this->middleware(['auth','Setting'])->except('packageDetails');
         $this->packageService = $packageService;
         $this->orderService = $orderService;
     }

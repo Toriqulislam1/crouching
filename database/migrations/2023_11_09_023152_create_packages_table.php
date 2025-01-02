@@ -28,6 +28,7 @@ class CreatePackagesTable extends Migration
             $table->string('course_id');
             $table->string('subject_id');
             $table->string('batch_id');
+            $table->text('details')->nullable();
             $table->tinyInteger('status')->default('1')->comment('1 is active');
             $table->timestamps();
         });

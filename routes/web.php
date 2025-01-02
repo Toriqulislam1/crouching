@@ -31,24 +31,19 @@ Route::get('/clear-cache', function () {
 // frontend routes
 
 Route::prefix('frontend')->name('frontend.')->group(function () {
-    //Package
+    // Package Routes
     Route::prefix('package')->name('package.')->group(function () {
-        Route::get('/details/{id}', [HomeController::class, 'packageDetails'])->name('packagDetails');
-        Route::get('/create/{id}', [ExamController::class, 'create'])->name('create');
-        Route::post('/store', [ExamController::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [ExamController::class, 'edit'])->name('edit');
-        Route::delete('/destroy/{id}', [ExamController::class, 'destroy'])->name('destroy');
-        Route::get('/showIndex', [ExamController::class, 'showIndex'])->name('showIndex');
+        // Exclude `auth` middleware for this route
+        Route::get('/details/{id}', [HomeController::class, 'packageDetails'])
+            ->name('packagDetails')
+            ->middleware('Setting'); // Only apply the 'Setting' middleware
     });
 
+    // Other routes that require `auth` middleware
+    Route::middleware(['auth', 'Setting'])->group(function () {
+        // Add your routes here
+    });
 });
-
-
-
-
-
-
-
 
 Route::get('/', ['as' => '/', 'uses' => 'FrontendController@home']);
 

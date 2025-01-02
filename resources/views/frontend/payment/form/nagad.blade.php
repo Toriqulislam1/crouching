@@ -11,13 +11,13 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="common-heading text-l">
-                                <h4 class="mt0 mb0"> payment name: {{ $nagadData->payment_name  }} </h4>
+                                <h4 class="mt0 mb0">Pay with: {{ $nagadData->payment_name  }} </h4>
                                 <p class="mb50 mt10">nato: {{ $nagadData->note   }} </p>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="common-heading text-l">
-                                <h4 class="mt0 mb0">transaction number:{{ $nagadData->transaction_id   }} </h4>
+                                <h4 class="mt0 mb0">Payment number: {{ $nagadData->transaction_id   }} </h4>
                             </div>
                         </div>
                     </div>
