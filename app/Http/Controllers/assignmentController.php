@@ -53,7 +53,7 @@ class assignmentController extends Controller
             'description' => 'required',
             'subject_id' => 'required|exists:subjects,id',
             'batch_id' => 'required|exists:batches,id',
-            'due_date' => 'required|date',
+          
         ]);
 
         Assignment::create($request->all());

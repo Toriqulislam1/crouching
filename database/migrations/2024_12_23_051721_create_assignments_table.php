@@ -19,7 +19,7 @@ class CreateAssignmentsTable extends Migration
             $table->text('description');
             $table->foreignId('subject_id')->constrained()->onDelete('cascade');
             $table->foreignId('batch_id')->constrained()->onDelete('cascade');
-            $table->date('due_date');
+            $table->date('due_date')->nullable();
             $table->timestamps();
         });
     }
